@@ -1,0 +1,54 @@
+:root {
+  color-scheme: light;
+  --color-primary: #7f2c0f;
+  --color-primary-dark: #682207;
+  --color-secondary: #645d59;
+  --color-accent: #f2b84b;
+  --color-bg: #fcf9f4;
+  --color-surface: #fcf9f4;
+  --color-surface-low: #f6f3ee;
+  --color-surface-card: #f0ede9;
+  --color-surface-high: #e5e2dd;
+  --color-text: #1c1c19;
+  --color-muted: #68615e;
+  --color-border: #dcc1b8;
+  --color-overlay: rgb(28 28 25 / 68%);
+  --color-glass: rgb(252 249 244 / 90%);
+  --color-glass-edge: rgb(255 255 255 / 35%);
+  --color-outline-soft: rgb(137 114 107 / 30%);
+  --color-promo-surface: #ffdbd0;
+  --color-promo-ink: #390b00;
+  --color-wa: #25d366;
+  --color-wa-dark: #168a44;
+
+  --font-body: "Newsreader", Georgia, serif;
+  --font-heading: "Syne", system-ui, sans-serif;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+
+  --radius-card: 12px;
+  --radius-button: 999px;
+  --radius-input: 10px;
+  --radius-image: 12px;
+  --shadow-card: 0 6px 24px rgb(62 56 53 / 8%);
+  --shadow-card-hover: 0 12px 30px rgb(62 56 53 / 12%);
+  --shadow-header: 0 1px 8px rgb(62 56 53 / 4%);
+
+  --container-width: 1280px;
+  --container-gutter: 20px;
+  --motion-duration: 200ms;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --container-gutter: 32px;
+  }
+}

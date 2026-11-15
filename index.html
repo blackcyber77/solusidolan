@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#fcf9f4">
+    <title>jogja.guide | Curated Trails</title>
+    <meta name="description" content="A considered travel journal of Yogyakarta's quiet lanes, craft studios, thoughtful stays, and local tables.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <script defer src="data/itineraries.js"></script>
+    <script defer src="js/render-home.js"></script>
+    <script defer src="js/main.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#konten">Skip to content</a>
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a class="wordmark" href="index.html" aria-label="jogja.guide home">
+          <span class="wordmark__mark" aria-hidden="true">j.</span>
+          <span class="wordmark__text">jogja.guide<span class="wordmark__caption">Contemporary Journal</span></span>
+        </a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label="Open menu">
+          <span class="menu-toggle__line"></span>
+          <span class="menu-toggle__line"></span>
+        </button>
+        <nav class="site-nav" id="site-navigation" aria-label="Primary navigation">
+          <a class="site-nav__link is-active" href="#curated-trails" aria-current="page">Curated Trails</a>
+          <a class="site-nav__link" href="#visual-stories">Visual Stories</a>
+          <a class="site-nav__link" href="#stay-dossier">Stay Dossier</a>
+          <a class="site-nav__link" href="#about-rama">About Rama</a>
+        </nav>
+        <a class="button button--primary site-header__cta" href="#inquiries">Chat via WhatsApp <span aria-hidden="true">↗</span></a>
+      </div>
+    </header>
+
+    <main id="konten" class="site-main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__inner container">
+          <div class="hero__story">
+            <p class="issue-label"><span class="issue-label__dot"></span> Monograph N° 04 <span aria-hidden="true">·</span> Special Region</p>
+            <h1 id="hero-title">Yogyakarta,<br><em>Slowed Down.</em></h1>
+            <p class="hero__intro">An intimate photo journal of quiet alleyways, morning mist, and artisanal coffee, curated through the spatial lens of an architect.</p>
+            <div class="hero__actions">
+              <a class="button button--primary" href="#curated-trails">Explore Itineraries <span aria-hidden="true">↓</span></a>
+              <a class="button button--quiet" href="#about-rama">Personal Note</a>
+            </div>
+            <dl class="hero__facts">
+              <div><dt>18+</dt><dd>Studios &amp; Ateliers</dd></div>
+              <div><dt>03</dt><dd>Paced Trails</dd></div>
+              <div><dt>100%</dt><dd>Pedestrian First</dd></div>
+            </dl>
+          </div>
+          <figure class="hero__visual">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmcuok4AD7AkNsI6MvSY6wlyl0LqqOopM0WdiI9VZtEE_LtJ1gdQk7oP5iJF9tKaTPzJSiYl_OZxPnyztwDrI7vUewOGFYP5OgHnhcTpsmQVic9diCIQd2O1l8pI2LKjoUauTcqF0gYgoCqupkWX070Hwlf6y8xK8K5LVYwKtQMXjo5CKhtreQF7AIQI2TWS0SyWnsHUhi3MCxIMg9eTBklqcwHasDzcJjilzQ0YBfbs1Vi3HuJraQ" alt="Tugu Yogyakarta at golden hour, with cyclists passing in the foreground" width="1200" height="1500" fetchpriority="high">
+            <figcaption class="hero__caption"><span><small>Primary Axis</small><strong>Tugu Pal Putih at 17:45 WIB</strong></span><span class="plate-tag">Plate 01</span></figcaption>
+          </figure>
+          <aside class="hero__tip"><span class="hero__tip-label">Optimal Time</span><p>Arrive 20 minutes before Maghrib, when traffic settles and the street lamps begin to glow.</p></aside>
+        </div>
+      </section>
+
+      <section class="trails section" id="curated-trails" aria-labelledby="trails-title">
+        <div class="container">
+          <div class="section-heading">
+            <div><p class="section-kicker"><span></span> Curated Trails</p><h2 id="trails-title">Artisan Quarters &amp;<br class="desktop-break"> Highland Sanctuaries</h2></div>
+            <div class="trail-controls"><p>Curated for a deliberate pace</p><div><button class="round-control" type="button" id="trail-prev" aria-label="Previous trail">←</button><button class="round-control" type="button" id="trail-next" aria-label="Next trail">→</button></div></div>
+          </div>
+          <div class="trail-grid" id="trails-scroller" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="stay section" id="stay-dossier" aria-labelledby="stay-title">
+        <div class="container">
+          <article class="stay-feature">
+            <div class="stay-feature__image" id="visual-stories">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCHkgGOE4VZktDAw3d081Fjx72L2gImClZC0IQoP6uL0_MLOSg1GfzksnQkoFveG7zggVO1Pf6QvQWB2fLT8dLWWS0HptFGtkWzPrsyY9E5ZoEwOXqK8ySJpt5fGzfWp_ufTNnmfI5lNUr1Z9qmSgjs6aGdc91qP8I1RyJe8n27-UYfZofYKB8e8zj81pRcrYm2yMTzMnoigBWQe-peNCB-jN9zhTJokaAzZx1Vi1Fv1apWuUYhAJa" alt="A handcrafted teak daybed in a quiet boutique villa interior" width="1200" height="750" loading="lazy">
+            </div>
+            <div class="stay-feature__copy">
+              <div class="stay-tags"><span>Direct Rate</span><span>Villa Sanctuary</span><span class="stay-tags__promo">Promo: JOGJASLOW</span></div>
+              <h2 id="stay-title">Omah Prawiro<br> Boutique Villa</h2>
+              <p class="stay-feature__location">Prawirotaman Quarter <span>·</span> 4 Private Pavilion Suites</p>
+              <p class="stay-feature__description">A restored 1930s Indische-style residence tucked into a quiet cul-de-sac, with water gardens, hand-cast terracotta tiles, and furniture made by Jepara joiners.</p>
+              <div class="stay-feature__actions"><a class="button button--primary" href="#inquiries">Reserve via WhatsApp <span aria-hidden="true">↗</span></a><span>From IDR 1.450.000 / night</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="dispatch section" id="about-rama" aria-labelledby="dispatch-title">
+        <div class="dispatch__inner container">
+          <img class="dispatch__portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDimm8gTpkXPoCkBpO9-2ME6bPQ7gyLe5zObGCQQSe1qMpfAiwF5SxcU4I9B_bYOeY2qL9zSwS44EyY_v-IXyTB2v6Byx3e7s_fA5PQSyCyBT5K_fe4lACVET0l7Ewcg3xR1XHA9agN1QXDLUS662Q5Wt2Nt7UgdX3GGl8qArvCbPd1Pogeym0bBuYuqM3QKanor3vYVn04T9iwdJ3GpECRpys0V-_qyhqSle7HWozsyos9QegrIBYf" alt="Rama, architect and photographer in his studio" width="160" height="160" loading="lazy">
+          <p class="section-kicker">Curator Note</p>
+          <h2 id="dispatch-title">“This monograph isn't a checklist; it's an invitation to listen to the rhythm of this city without rushing.”</h2>
+          <p class="dispatch__byline">Curated with love by Rama, an architect living in Yogyakarta since 2017.</p>
+          <a class="button button--primary" href="#inquiries">Ask Rama for Recommendations <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+    </main>
+
+    <aside class="floating-inquiry"><a href="#inquiries"><span aria-hidden="true">↗</span><span>Direct Inquiry</span></a></aside>
+
+    <footer class="site-footer" id="inquiries">
+      <div class="container site-footer__grid">
+        <div class="site-footer__brand"><a class="wordmark wordmark--footer" href="index.html">jogja.guide</a><p>An independent travel monograph documenting contemporary art, vernacular architecture, and culinary modernism across the Special Region of Yogyakarta.</p><small>Curated by Rama © <span data-current-year></span>. All Rights Reserved.</small></div>
+        <nav class="site-footer__chapters" aria-label="Monograph chapters"><h2>Monograph Chapters</h2><a href="#curated-trails">01 / Curated Trails</a><a href="#visual-stories">02 / Visual Stories</a><a href="#stay-dossier">03 / Stay Dossier</a><a href="#about-rama">04 / Studio &amp; Background</a></nav>
+        <div class="site-footer__contact"><h2>Inquiries &amp; Dispatches</h2><p>Private itineraries, studio visits, and architectural field guides tailored by request.</p><a href="#inquiries">WhatsApp Dispatch <span aria-hidden="true">→</span></a><small>Pricing and availability may change. Please confirm before booking.</small></div>
+      </div>
+    </footer>
+  </body>
+</html>
