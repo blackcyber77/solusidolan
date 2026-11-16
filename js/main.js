@@ -1,41 +1,51 @@
-const menuToggle = document.querySelector(".menu-toggle");
-const siteNavigation = document.querySelector("#site-navigation");
 const currentYear = document.querySelector("[data-current-year]");
+const menuToggle = document.querySelector(".nav-toggle");
+const siteNavigation = document.querySelector("#site-navigation");
+const menuIcon = menuToggle?.querySelector(".material-symbols-outlined");
 
 if (currentYear) {
   currentYear.textContent = String(new Date().getFullYear());
 }
 
-if (menuToggle && siteNavigation) {
-  const closeMenu = () => {
-    menuToggle.setAttribute("aria-expanded", "false");
-    menuToggle.setAttribute("aria-label", "Open menu");
-    siteNavigation.classList.remove("is-open");
+if (menuToggle && siteNavigation && menuIcon) {
+  const setMenuOpen = (isOpen, restoreFocus = false) => {
+    menuToggle.setAttribute("aria-expanded", String(isOpen));
+    menuToggle.setAttribute("aria-label", isOpen ? "Tutup menu" : "Buka menu");
+    siteNavigation.setAttribute("aria-hidden", String(!isOpen));
+    siteNavigation.inert = !isOpen;
+    siteNavigation.classList.toggle("is-open", isOpen);
+    menuIcon.textContent = isOpen ? "close" : "menu";
+
+    if (isOpen) {
+      siteNavigation.querySelector("a")?.focus();
+    } else if (restoreFocus) {
+      menuToggle.focus();
+    }
   };
 
   menuToggle.addEventListener("click", () => {
-    const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
-    menuToggle.setAttribute("aria-expanded", String(!isExpanded));
-    menuToggle.setAttribute("aria-label", isExpanded ? "Open menu" : "Close menu");
-    siteNavigation.classList.toggle("is-open", !isExpanded);
+    const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+    setMenuOpen(!isOpen);
   });
 
   siteNavigation.addEventListener("click", (event) => {
-    if (event.target instanceof HTMLAnchorElement) {
-      closeMenu();
+    if (event.target instanceof Element && event.target.closest("a")) {
+      setMenuOpen(false);
+    }
+  });
+
+  document.addEventListener("pointerdown", (event) => {
+    const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+    if (isOpen && event.target instanceof Node && !siteNavigation.contains(event.target) && !menuToggle.contains(event.target)) {
+      setMenuOpen(false);
     }
   });
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && menuToggle.getAttribute("aria-expanded") === "true") {
-      closeMenu();
-      menuToggle.focus();
-    }
-  });
-
-  window.addEventListener("resize", () => {
-    if (window.matchMedia("(min-width: 768px)").matches) {
-      closeMenu();
+    const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+    if (event.key === "Escape" && isOpen) {
+      setMenuOpen(false, true);
     }
   });
 }
+

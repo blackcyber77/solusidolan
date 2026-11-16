@@ -3,12 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#fcf9f4">
+    <meta name="theme-color" content="#ffffff">
     <title>jogja.guide | Curated Trails</title>
     <meta name="description" content="A considered travel journal of Yogyakarta's quiet lanes, craft studios, thoughtful stays, and local tables.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Nunito:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@0..1&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/tokens.css">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/components.css">
@@ -21,56 +22,44 @@
     <a class="skip-link" href="#konten">Skip to content</a>
     <header class="site-header">
       <div class="container site-header__inner">
-        <a class="wordmark" href="index.html" aria-label="jogja.guide home">
-          <span class="wordmark__mark" aria-hidden="true">j.</span>
-          <span class="wordmark__text">jogja.guide<span class="wordmark__caption">Contemporary Journal</span></span>
+        <a class="wordmark" href="index.html" aria-label="SolusiDolan.id home">
+          <img class="wordmark__logo" src="logo%20solusi%20dolan.png" alt="" width="78" height="52">
+          <span class="wordmark__text"><span class="wordmark__brand"><span class="wordmark__solution">Solusi</span><span class="wordmark__dolan">Dolan.id</span></span><span class="wordmark__caption">Contemporary Journal</span></span>
         </a>
-        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label="Open menu">
-          <span class="menu-toggle__line"></span>
-          <span class="menu-toggle__line"></span>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label="Buka menu">
+          <span class="material-symbols-outlined" aria-hidden="true">menu</span>
         </button>
-        <nav class="site-nav" id="site-navigation" aria-label="Primary navigation">
-          <a class="site-nav__link is-active" href="#curated-trails" aria-current="page">Curated Trails</a>
-          <a class="site-nav__link" href="#visual-stories">Visual Stories</a>
-          <a class="site-nav__link" href="#stay-dossier">Stay Dossier</a>
-          <a class="site-nav__link" href="#about-rama">About Rama</a>
+        <nav class="site-nav" id="site-navigation" aria-label="Primary navigation" aria-hidden="true" inert>
+          <a class="site-nav__link is-active" href="#konten" aria-current="page"><span class="material-symbols-outlined" aria-hidden="true">home</span><span>Beranda</span></a>
+          <a class="site-nav__link" href="#curated-trails"><span class="material-symbols-outlined" aria-hidden="true">route</span><span>Itinerary</span></a>
+          <a class="site-nav__link" href="#about-rama"><span class="material-symbols-outlined" aria-hidden="true">person</span><span>About</span></a>
         </nav>
-        <a class="button button--primary site-header__cta" href="#inquiries">Chat via WhatsApp <span aria-hidden="true">↗</span></a>
       </div>
     </header>
 
     <main id="konten" class="site-main">
       <section class="hero" aria-labelledby="hero-title">
-        <div class="hero__inner container">
-          <div class="hero__story">
-            <p class="issue-label"><span class="issue-label__dot"></span> Monograph N° 04 <span aria-hidden="true">·</span> Special Region</p>
-            <h1 id="hero-title">Yogyakarta,<br><em>Slowed Down.</em></h1>
-            <p class="hero__intro">An intimate photo journal of quiet alleyways, morning mist, and artisanal coffee, curated through the spatial lens of an architect.</p>
-            <div class="hero__actions">
-              <a class="button button--primary" href="#curated-trails">Explore Itineraries <span aria-hidden="true">↓</span></a>
-              <a class="button button--quiet" href="#about-rama">Personal Note</a>
-            </div>
-            <dl class="hero__facts">
-              <div><dt>18+</dt><dd>Studios &amp; Ateliers</dd></div>
-              <div><dt>03</dt><dd>Paced Trails</dd></div>
-              <div><dt>100%</dt><dd>Pedestrian First</dd></div>
-            </dl>
-          </div>
-          <figure class="hero__visual">
-            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmcuok4AD7AkNsI6MvSY6wlyl0LqqOopM0WdiI9VZtEE_LtJ1gdQk7oP5iJF9tKaTPzJSiYl_OZxPnyztwDrI7vUewOGFYP5OgHnhcTpsmQVic9diCIQd2O1l8pI2LKjoUauTcqF0gYgoCqupkWX070Hwlf6y8xK8K5LVYwKtQMXjo5CKhtreQF7AIQI2TWS0SyWnsHUhi3MCxIMg9eTBklqcwHasDzcJjilzQ0YBfbs1Vi3HuJraQ" alt="Tugu Yogyakarta at golden hour, with cyclists passing in the foreground" width="1200" height="1500" fetchpriority="high">
-            <figcaption class="hero__caption"><span><small>Primary Axis</small><strong>Tugu Pal Putih at 17:45 WIB</strong></span><span class="plate-tag">Plate 01</span></figcaption>
-          </figure>
-          <aside class="hero__tip"><span class="hero__tip-label">Optimal Time</span><p>Arrive 20 minutes before Maghrib, when traffic settles and the street lamps begin to glow.</p></aside>
-        </div>
+        <figure class="hero__visual">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDj1vNLG0bDP9vGTo1liM1e-ul85kfY-itK56MpFmp85CGVp5RelZ_zvatJgt8q5n3CsG1flw_w3So-E1WQKkkE-opCoq9vtEtc6TBaKeCuMZ1N0kd_zZynkHsylF2E0IT-59-3IB1H5BuSYZvALsFNjAEoP9mEMRF4WXd1lsyqK0l6XL6jU3prsxsDPTwol5lEj1GAxWz3bJ6HPii1NhYAaIcsIYICm885_vaOtmn-suuHTidHl2oR" alt="Tugu Yogyakarta glowing in amber light as local cyclists pass at sunset" width="1920" height="1080" fetchpriority="high">
+          <div class="hero__scrim" aria-hidden="true"></div>
+          <figcaption class="hero__content container">
+            <p class="hero__eyebrow">A Curated Visual Essay</p>
+            <h1 id="hero-title">Yogyakarta, Slowed Down.</h1>
+            <p class="hero__intro">An intimate photo journal of quiet alleys, morning mist, and artisanal coffee.</p>
+            <a class="button hero__button" href="#curated-trails">Explore Itineraries <span aria-hidden="true">↓</span></a>
+          </figcaption>
+        </figure>
       </section>
 
       <section class="trails section" id="curated-trails" aria-labelledby="trails-title">
         <div class="container">
           <div class="section-heading">
-            <div><p class="section-kicker"><span></span> Curated Trails</p><h2 id="trails-title">Artisan Quarters &amp;<br class="desktop-break"> Highland Sanctuaries</h2></div>
-            <div class="trail-controls"><p>Curated for a deliberate pace</p><div><button class="round-control" type="button" id="trail-prev" aria-label="Previous trail">←</button><button class="round-control" type="button" id="trail-next" aria-label="Next trail">→</button></div></div>
+            <div><p class="section-kicker"><span></span> Yogyakarta, considered</p><h2 id="trails-title">Curated Trails</h2></div>
+            <div class="trail-controls"><p>Swipe to browse</p><div><button class="round-control" type="button" id="trail-prev" aria-label="Previous itinerary">←</button><span class="trail-counter" id="trail-counter" aria-live="polite" aria-atomic="true">01 / 03</span><button class="round-control" type="button" id="trail-next" aria-label="Next itinerary">→</button></div></div>
           </div>
-          <div class="trail-grid" id="trails-scroller" aria-live="polite"></div>
+          <div class="trail-grid" id="trails-scroller" role="region" aria-roledescription="carousel" aria-label="Pilihan itinerary">
+            <div class="trail-track" id="trail-track" aria-live="polite"></div>
+          </div>
         </div>
       </section>
 
@@ -102,7 +91,7 @@
       </section>
     </main>
 
-    <aside class="floating-inquiry"><a href="#inquiries"><span aria-hidden="true">↗</span><span>Direct Inquiry</span></a></aside>
+    <aside class="floating-inquiry"><a href="https://wa.me/" target="_blank" rel="noopener noreferrer" aria-label="Chat WhatsApp"><svg class="floating-inquiry__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.04 2a9.91 9.91 0 0 0-8.48 15.04L2.1 22l5.08-1.33A9.91 9.91 0 1 0 12.04 2Zm0 18.1a8.17 8.17 0 0 1-4.16-1.14l-.3-.18-3.02.8.8-2.95-.2-.3a8.17 8.17 0 1 1 6.88 3.77Zm4.49-6.12c-.25-.13-1.49-.74-1.72-.82-.23-.08-.4-.13-.57.13-.17.25-.65.82-.8.99-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.75-.67-1.25-1.5-1.4-1.75-.15-.25-.02-.38.11-.51.12-.12.25-.29.38-.44.12-.15.17-.25.25-.42.08-.17.04-.32-.02-.44-.07-.13-.57-1.38-.78-1.89-.2-.5-.41-.43-.57-.44h-.48c-.17 0-.44.06-.67.32-.23.25-.88.86-.88 2.1s.9 2.43 1.03 2.6c.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.14.16 1.57.1.48-.07 1.49-.61 1.7-1.2.21-.59.21-1.09.15-1.2-.06-.1-.23-.17-.48-.29Z"/></svg><span>Chat WhatsApp</span></a></aside>
 
     <footer class="site-footer" id="inquiries">
       <div class="container site-footer__grid">

@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    <title>Itinerary | SolusiDolan.id</title>
+    <meta name="description" content="Jelajahi itinerary wisata pilihan di Yogyakarta.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Nunito:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@0..1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/itinerary.css">
+    <script defer src="data/itineraries.js"></script>
+    <script defer src="js/main.js"></script>
+    <script defer src="js/config.js"></script>
+    <script defer src="js/route-map.js"></script>
+    <script defer src="js/render-itinerary.js"></script>
+  </head>
+  <body class="itinerary-page">
+    <a class="skip-link" href="#konten">Langsung ke konten</a>
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a class="wordmark" href="index.html" aria-label="SolusiDolan.id, beranda">
+          <img class="wordmark__logo" src="logo%20solusi%20dolan.png" alt="" width="78" height="52">
+          <span class="wordmark__text"><span class="wordmark__brand"><span class="wordmark__solution">Solusi</span><span class="wordmark__dolan">Dolan.id</span></span><span class="wordmark__caption">Contemporary Journal</span></span>
+        </a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label="Buka menu">
+          <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+        </button>
+        <nav class="site-nav" id="site-navigation" aria-label="Navigasi utama" aria-hidden="true" inert>
+          <a class="site-nav__link" href="index.html"><span class="material-symbols-outlined" aria-hidden="true">home</span><span>Beranda</span></a>
+          <a class="site-nav__link is-active" href="#navigasi-hari" aria-current="page"><span class="material-symbols-outlined" aria-hidden="true">route</span><span>Itinerary</span></a>
+          <a class="site-nav__link" href="index.html#about-rama"><span class="material-symbols-outlined" aria-hidden="true">person</span><span>About</span></a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="konten">
+      <section class="itinerary-not-found container" id="not-found" aria-labelledby="not-found-title" aria-live="polite" hidden>
+        <p class="itinerary-kicker">SolusiDolan.id</p>
+        <h1 id="not-found-title">Itinerary tidak ditemukan</h1>
+        <p>Periksa tautan yang dibuka atau pilih perjalanan lain dari beranda.</p>
+        <a class="button button--primary" href="index.html">Kembali ke beranda</a>
+      </section>
+
+      <div id="itinerary-content" hidden>
+        <section class="itinerary-hero" aria-labelledby="itinerary-title">
+          <img class="itinerary-hero__image" data-cover alt="" width="1920" height="1080" fetchpriority="high">
+          <div class="itinerary-hero__scrim" aria-hidden="true"></div>
+          <div class="itinerary-hero__content container">
+            <a class="itinerary-hero__back" href="index.html">← Semua perjalanan</a>
+            <p class="itinerary-kicker" data-region></p>
+            <h1 id="itinerary-title" data-title></h1>
+            <p class="itinerary-hero__summary" data-summary></p>
+            <ul class="itinerary-hero__chips" data-hero-chips aria-label="Ringkasan itinerary"></ul>
+          </div>
+        </section>
+
+        <section class="itinerary-summary section" aria-labelledby="summary-title">
+          <div class="container itinerary-summary__layout">
+            <div class="itinerary-summary__copy">
+              <p class="itinerary-kicker">Sekilas perjalanan</p>
+              <h2 id="summary-title">Rencanakan langkahmu</h2>
+              <p class="itinerary-summary__intro" data-intro></p>
+              <div class="itinerary-best-for">
+                <h3>Cocok untuk</h3>
+                <ul data-best-for></ul>
+              </div>
+              <a class="button button--primary" href="#navigasi-hari">Lihat rencana hari <span aria-hidden="true">↓</span></a>
+              <a class="button button--quiet itinerary-summary__lodging-link" href="#penginapan" data-accommodation-cta hidden>Lihat rekomendasi kamar <span aria-hidden="true">↓</span></a>
+            </div>
+            <dl class="itinerary-stats" aria-label="Statistik itinerary">
+              <div><dt data-stat-stops>—</dt><dd>Destinasi</dd></div>
+              <div><dt data-stat-time>—</dt><dd>Waktu jelajah</dd></div>
+              <div><dt data-stat-price>—</dt><dd>Estimasi / orang</dd></div>
+            </dl>
+          </div>
+        </section>
+
+        <nav class="day-navigation" id="navigasi-hari" aria-label="Navigasi hari">
+          <div class="container day-navigation__inner">
+            <span class="day-navigation__label">Rencana perjalanan</span>
+            <div class="day-navigation__links" data-day-links></div>
+          </div>
+        </nav>
+
+        <section class="day-overview section" aria-labelledby="days-title">
+          <div class="container">
+            <p class="itinerary-kicker">Dari pagi hingga senja</p>
+            <h2 id="days-title">Rangkaian hari</h2>
+            <div class="day-overview__list" data-day-overviews></div>
+          </div>
+        </section>
+
+        <section class="cost-summary section" aria-labelledby="cost-summary-title">
+          <div class="container cost-summary__layout">
+            <div>
+              <p class="itinerary-kicker">Rencanakan anggaran</p>
+              <h2 id="cost-summary-title">Ringkasan biaya</h2>
+            </div>
+            <div class="cost-summary__table-wrap">
+              <table class="cost-summary__table">
+                <caption class="visually-hidden">Estimasi biaya perjalanan</caption>
+                <thead>
+                  <tr><th scope="col">Komponen</th><th scope="col">Estimasi</th></tr>
+                </thead>
+                <tbody>
+                  <tr><th scope="row">Tiket &amp; aktivitas <span>(per orang)</span></th><td data-cost-tickets>—</td></tr>
+                  <tr><th scope="row">Makan &amp; jajan <span>(per orang)</span></th><td data-cost-meals>—</td></tr>
+                  <tr><th scope="row">Transportasi antar lokasi <span>(per kendaraan)</span></th><td data-cost-transport>—</td></tr>
+                  <tr><th scope="row">Penginapan</th><td data-cost-accommodation>—</td></tr>
+                </tbody>
+                <tfoot data-cost-totals></tfoot>
+              </table>
+            </div>
+            <p class="cost-summary__note" data-cost-note></p>
+          </div>
+        </section>
+
+        <section class="lodging-section section" id="penginapan" aria-labelledby="lodging-title" hidden>
+          <div class="container">
+            <p class="itinerary-kicker">Istirahat dengan nyaman</p>
+            <h2 id="lodging-title">Rekomendasi penginapan</h2>
+            <div class="room-grid" data-room-grid></div>
+          </div>
+        </section>
+
+        <aside class="detail-whatsapp">
+          <a class="detail-whatsapp__link" href="https://wa.me/" target="_blank" rel="noopener noreferrer" data-whatsapp-hotel aria-label="Info Penginapan melalui WhatsApp">
+            <svg class="detail-whatsapp__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.04 2a9.91 9.91 0 0 0-8.48 15.04L2.1 22l5.08-1.33A9.91 9.91 0 1 0 12.04 2Zm0 18.1a8.17 8.17 0 0 1-4.16-1.14l-.3-.18-3.02.8.8-2.95-.2-.3a8.17 8.17 0 1 1 6.88 3.77Zm4.49-6.12c-.25-.13-1.49-.74-1.72-.82-.23-.08-.4-.13-.57.13-.17.25-.65.82-.8.99-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.75-.67-1.25-1.5-1.4-1.75-.15-.25-.02-.38.11-.51.12-.12.25-.29.38-.44.12-.15.17-.25.25-.42.08-.17.04-.32-.02-.44-.07-.13-.57-1.38-.78-1.89-.2-.5-.41-.43-.57-.44h-.48c-.17 0-.44.06-.67.32-.23.25-.88.86-.88 2.1s.9 2.43 1.03 2.6c.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.14.16 1.57.1.48-.07 1.49-.61 1.7-1.2.21-.59.21-1.09.15-1.2-.06-.1-.23-.17-.48-.29Z"/></svg>
+            <span>Info Penginapan</span>
+          </a>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="site-footer itinerary-footer" id="footer">
+      <div class="container site-footer__grid">
+        <div class="site-footer__brand">
+          <a class="wordmark wordmark--footer" href="index.html">SolusiDolan.id</a>
+          <p>Temukan cara yang lebih mudah untuk menikmati perjalananmu.</p>
+          <small>© <span data-current-year></span> SolusiDolan.id</small>
+        </div>
+        <nav class="site-footer__chapters" aria-label="Navigasi footer">
+          <h2>Jelajahi</h2>
+          <a href="index.html">Beranda</a>
+          <a href="index.html#curated-trails">Pilihan itinerary</a>
+          <a href="index.html#about-rama">Tentang kami</a>
+        </nav>
+      </div>
+    </footer>
+
+    <p class="site-toast" role="status" aria-live="polite" data-site-toast hidden></p>
+
+    <dialog class="itinerary-lightbox" id="photo-lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-caption">
+      <button class="itinerary-lightbox__close" type="button" data-lightbox-close aria-label="Tutup galeri">×</button>
+      <button class="itinerary-lightbox__control itinerary-lightbox__previous" type="button" data-lightbox-previous aria-label="Foto sebelumnya">←</button>
+      <figure class="itinerary-lightbox__figure">
+        <img data-lightbox-image alt="" width="1200" height="900">
+        <figcaption id="lightbox-caption" data-lightbox-caption></figcaption>
+      </figure>
+      <button class="itinerary-lightbox__control itinerary-lightbox__next" type="button" data-lightbox-next aria-label="Foto berikutnya">→</button>
+      <p class="itinerary-lightbox__counter" data-lightbox-counter aria-live="polite"></p>
+    </dialog>
+  </body>
+</html>
