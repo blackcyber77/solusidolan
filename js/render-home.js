@@ -87,13 +87,15 @@
     let pointerDelta = 0;
     let activePointerId = null;
     let isDragging = false;
+    let isTransitioning = false;
+    let stackTimer = 0;
     let suppressClickUntil = 0;
 
     const renderState = () => {
       const mobile = isMobile();
       controls.hidden = !mobile || cards.length < 2;
-      previousButton.disabled = activeIndex === 0;
-      nextButton.disabled = activeIndex === cards.length - 1;
+      previousButton.disabled = activeIndex === 0 || isTransitioning;
+      nextButton.disabled = activeIndex === cards.length - 1 || isTransitioning;
       counter.textContent = `${String(activeIndex + 1).padStart(2, "0")} / ${String(cards.length).padStart(2, "0")}`;
 
       cards.forEach((card, index) => {
@@ -111,19 +113,60 @@
     };
 
     const goTo = (nextIndex) => {
-      if (!isMobile()) {
+      if (!isMobile() || isTransitioning) {
         return;
       }
 
-      activeIndex = Math.max(0, Math.min(nextIndex, cards.length - 1));
+      const targetIndex = Math.max(0, Math.min(nextIndex, cards.length - 1));
+      if (targetIndex === activeIndex) {
+        pointerDelta = 0;
+        renderState();
+        return;
+      }
+
+      const outgoingCard = cards[activeIndex];
+      const outgoingBounds = outgoingCard.getBoundingClientRect();
+      const viewportBounds = trailContainer.getBoundingClientRect();
+      const flightCard = outgoingCard.cloneNode(true);
+      const direction = targetIndex > activeIndex ? 1 : -1;
+      flightCard.classList.remove("is-entering", "is-stack-arriving");
+      flightCard.classList.add("trail-stack-flight");
+      flightCard.setAttribute("aria-hidden", "true");
+      flightCard.inert = true;
+      flightCard.style.left = `${outgoingBounds.left - viewportBounds.left}px`;
+      flightCard.style.top = `${outgoingBounds.top - viewportBounds.top}px`;
+      flightCard.style.width = `${outgoingBounds.width}px`;
+      flightCard.style.height = `${outgoingBounds.height}px`;
+      flightCard.style.setProperty("--stack-exit-x", `${direction * -42}px`);
+      flightCard.style.setProperty("--stack-exit-rotation", `${direction * -8}deg`);
+      trailContainer.append(flightCard);
+
+      isTransitioning = true;
+      trailTrack.classList.add("is-stack-switching");
+      trailContainer.classList.add("is-stacking");
+      activeIndex = targetIndex;
       pointerDelta = 0;
       renderState();
+      void trailTrack.offsetWidth;
+      trailTrack.classList.remove("is-stack-switching");
 
       const activeCard = cards[activeIndex];
       cards.forEach((card) => card.classList.remove("is-entering"));
       void activeCard.offsetWidth;
+      activeCard.classList.add("is-stack-arriving");
       activeCard.classList.add("is-entering");
-      window.setTimeout(() => activeCard.classList.remove("is-entering"), 900);
+
+      const finishStackTransition = () => {
+        window.clearTimeout(stackTimer);
+        flightCard.remove();
+        activeCard.classList.remove("is-entering", "is-stack-arriving");
+        trailContainer.classList.remove("is-stacking");
+        isTransitioning = false;
+        renderState();
+      };
+
+      flightCard.addEventListener("animationend", finishStackTransition, { once: true });
+      stackTimer = window.setTimeout(finishStackTransition, 820);
     };
 
     const finishPointer = (event, canceled = false) => {

@@ -245,10 +245,43 @@
 }
 
 .trail-grid {
+  position: relative;
+  isolation: isolate;
   overflow: hidden;
 }
 
+.trail-grid::before,
+.trail-grid::after {
+  position: absolute;
+  z-index: 0;
+  right: var(--space-3);
+  bottom: 0;
+  left: var(--space-3);
+  display: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface-card);
+  box-shadow: var(--shadow-card);
+  content: "";
+  pointer-events: none;
+}
+
+.trail-grid::before {
+  top: var(--space-3);
+  transform: rotate(1.7deg);
+}
+
+.trail-grid::after {
+  top: var(--space-6);
+  right: var(--space-6);
+  left: var(--space-6);
+  transform: rotate(-1.7deg);
+  background: var(--color-surface-high);
+}
+
 .trail-track {
+  position: relative;
+  z-index: 1;
   display: flex;
   gap: 0;
   transform: translate3d(0, 0, 0);
@@ -273,6 +306,42 @@
 .trail-track.is-dragging {
   cursor: grabbing;
   transition: none;
+}
+
+.trail-track.is-stack-switching {
+  transition: none !important;
+}
+
+.trail-grid.is-stacking::before,
+.trail-grid.is-stacking::after {
+  display: block;
+}
+
+.trail-grid.is-stacking::before {
+  animation: stack-layer-top 680ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.trail-grid.is-stacking::after {
+  animation: stack-layer-bottom 760ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.trail-card.trail-stack-flight {
+  position: absolute;
+  z-index: 4;
+  margin: 0;
+  transform-origin: 50% 72%;
+  animation: stack-card-exit 650ms cubic-bezier(0.65, 0, 0.35, 1) both;
+  pointer-events: none;
+}
+
+.trail-card.is-stack-arriving {
+  z-index: 2;
+  transform-origin: 50% 15%;
+  animation: stack-card-arrive 720ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.trail-card.is-stack-arriving:hover {
+  transform: none;
 }
 
 .trail-track.is-dragging .trail-card {
@@ -336,6 +405,68 @@
 
   to {
     transform: scale(1);
+  }
+}
+
+@keyframes stack-card-exit {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0);
+    opacity: 1;
+  }
+
+  38% {
+    transform: translate3d(0, -18px, 0) scale(0.97) rotate(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate3d(var(--stack-exit-x), -34px, 0) scale(0.82) rotate(var(--stack-exit-rotation));
+    opacity: 0;
+  }
+}
+
+@keyframes stack-card-arrive {
+  0% {
+    transform: translate3d(0, 28px, 0) scale(0.91) rotate(3deg);
+    opacity: 0.72;
+  }
+
+  58% {
+    transform: translate3d(0, -5px, 0) scale(1.012) rotate(-0.5deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0);
+    opacity: 1;
+  }
+}
+
+@keyframes stack-layer-top {
+  0%, 25% {
+    transform: translateY(0) rotate(1.7deg);
+  }
+
+  60% {
+    transform: translateY(-5px) rotate(-2.2deg);
+  }
+
+  100% {
+    transform: translateY(0) rotate(1.7deg);
+  }
+}
+
+@keyframes stack-layer-bottom {
+  0%, 30% {
+    transform: translateY(0) rotate(-1.7deg);
+  }
+
+  65% {
+    transform: translateY(-8px) rotate(2deg);
+  }
+
+  100% {
+    transform: translateY(0) rotate(-1.7deg);
   }
 }
 
@@ -599,6 +730,11 @@
     overflow: visible;
   }
 
+  .trail-grid::before,
+  .trail-grid::after {
+    display: none;
+  }
+
   .trail-track {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -674,6 +810,13 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .trail-card.trail-stack-flight,
+  .trail-card.is-stack-arriving,
+  .trail-grid.is-stacking::before,
+  .trail-grid.is-stacking::after {
+    animation: none;
+  }
+
   .trail-track {
     transition: none;
   }
