@@ -15,7 +15,9 @@
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/pages.css">
     <script defer src="data/itineraries.js"></script>
+    <script defer src="data/accommodations.js"></script>
     <script defer src="js/render-home.js"></script>
+    <script defer src="js/render-accommodations.js"></script>
     <script defer src="js/main.js"></script>
   </head>
   <body>
@@ -23,7 +25,7 @@
     <header class="site-header">
       <div class="container site-header__inner">
         <a class="wordmark" href="index.html" aria-label="SolusiDolan.id home">
-          <img class="wordmark__logo" src="logo%20solusi%20dolan.png" alt="" width="78" height="52">
+          <img class="wordmark__logo" src="assets/images/brand/logo-solusi-dolan.png" alt="" width="78" height="52">
           <span class="wordmark__text"><span class="wordmark__brand"><span class="wordmark__solution">Solusi</span><span class="wordmark__dolan">Dolan.id</span></span><span class="wordmark__caption">Contemporary Journal</span></span>
         </a>
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label="Buka menu">
@@ -32,6 +34,7 @@
         <nav class="site-nav" id="site-navigation" aria-label="Primary navigation" aria-hidden="true" inert>
           <a class="site-nav__link is-active" href="#konten" aria-current="page"><span class="material-symbols-outlined" aria-hidden="true">home</span><span>Beranda</span></a>
           <a class="site-nav__link" href="#curated-trails"><span class="material-symbols-outlined" aria-hidden="true">route</span><span>Itinerary</span></a>
+          <a class="site-nav__link" href="penginapan.html"><span class="material-symbols-outlined" aria-hidden="true">hotel</span><span>Penginapan</span></a>
           <a class="site-nav__link" href="#about-rama"><span class="material-symbols-outlined" aria-hidden="true">person</span><span>About</span></a>
         </nav>
       </div>
@@ -40,13 +43,31 @@
     <main id="konten" class="site-main">
       <section class="hero" aria-labelledby="hero-title">
         <figure class="hero__visual">
-          <img src="bg%20utama.jpeg" alt="Latar utama website SolusiDolan.id" width="1264" height="848" fetchpriority="high">
+          <img src="assets/images/backgrounds/bg-utama.jpeg" alt="Latar utama website SolusiDolan.id" width="1264" height="848" fetchpriority="high">
           <div class="hero__scrim" aria-hidden="true"></div>
           <figcaption class="hero__content container">
             <h1 id="hero-title">Penginapan mulai 135 ribuan</h1>
             <p class="hero__intro">Pesan lewat aplikasi pakai kode promo: RDAFFRDRZAJA</p>
           </figcaption>
         </figure>
+      </section>
+
+      <section class="stay section" id="stay-dossier" aria-labelledby="stay-title">
+        <div class="container">
+          <div class="stay-slider-heading">
+            <div><p class="section-kicker"><span></span> Penginapan pilihan</p><h2 id="stay-title">Tempat singgah untuk perjalananmu</h2></div>
+            <a class="button button--quiet stay-slider-heading__all" href="penginapan.html">Lihat semua penginapan <span aria-hidden="true">→</span></a>
+            <div class="stay-slider-controls" data-stay-controls hidden>
+              <button class="round-control" type="button" data-stay-previous aria-label="Rekomendasi sebelumnya">←</button>
+              <span class="trail-counter" data-stay-counter aria-live="polite" aria-atomic="true">01 / 01</span>
+              <button class="round-control" type="button" data-stay-next aria-label="Rekomendasi berikutnya">→</button>
+            </div>
+          </div>
+          <div class="stay-slider" id="visual-stories" data-stay-slider role="region" aria-roledescription="carousel" aria-label="Rekomendasi penginapan">
+            <div class="stay-slider__track" data-stay-track aria-live="polite"></div>
+          </div>
+          <div class="stay-slider-dots" data-stay-dots aria-label="Pilih rekomendasi penginapan"></div>
+        </div>
       </section>
 
       <section class="trails section" id="curated-trails" aria-labelledby="trails-title">
@@ -58,23 +79,6 @@
           <div class="trail-grid" id="trails-scroller" role="region" aria-roledescription="carousel" aria-label="Pilihan itinerary">
             <div class="trail-track" id="trail-track" aria-live="polite"></div>
           </div>
-        </div>
-      </section>
-
-      <section class="stay section" id="stay-dossier" aria-labelledby="stay-title">
-        <div class="container">
-          <article class="stay-feature">
-            <div class="stay-feature__image" id="visual-stories">
-              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCHkgGOE4VZktDAw3d081Fjx72L2gImClZC0IQoP6uL0_MLOSg1GfzksnQkoFveG7zggVO1Pf6QvQWB2fLT8dLWWS0HptFGtkWzPrsyY9E5ZoEwOXqK8ySJpt5fGzfWp_ufTNnmfI5lNUr1Z9qmSgjs6aGdc91qP8I1RyJe8n27-UYfZofYKB8e8zj81pRcrYm2yMTzMnoigBWQe-peNCB-jN9zhTJokaAzZx1Vi1Fv1apWuUYhAJa" alt="A handcrafted teak daybed in a quiet boutique villa interior" width="1200" height="750" loading="lazy">
-            </div>
-            <div class="stay-feature__copy">
-              <div class="stay-tags"><span>Direct Rate</span><span>Villa Sanctuary</span><span class="stay-tags__promo">Promo: JOGJASLOW</span></div>
-              <h2 id="stay-title">Omah Prawiro<br> Boutique Villa</h2>
-              <p class="stay-feature__location">Prawirotaman Quarter <span>·</span> 4 Private Pavilion Suites</p>
-              <p class="stay-feature__description">A restored 1930s Indische-style residence tucked into a quiet cul-de-sac, with water gardens, hand-cast terracotta tiles, and furniture made by Jepara joiners.</p>
-              <div class="stay-feature__actions"><a class="button button--primary" href="#inquiries">Reserve via WhatsApp <span aria-hidden="true">↗</span></a><span>From IDR 1.450.000 / night</span></div>
-            </div>
-          </article>
         </div>
       </section>
 
@@ -94,7 +98,7 @@
     <footer class="site-footer" id="inquiries">
       <div class="container site-footer__grid">
         <div class="site-footer__brand"><a class="wordmark wordmark--footer" href="index.html">jogja.guide</a><p>An independent travel monograph documenting contemporary art, vernacular architecture, and culinary modernism across the Special Region of Yogyakarta.</p><small>Curated by Rama © <span data-current-year></span>. All Rights Reserved.</small></div>
-        <nav class="site-footer__chapters" aria-label="Monograph chapters"><h2>Monograph Chapters</h2><a href="#curated-trails">01 / Curated Trails</a><a href="#visual-stories">02 / Visual Stories</a><a href="#stay-dossier">03 / Stay Dossier</a><a href="#about-rama">04 / Studio &amp; Background</a></nav>
+        <nav class="site-footer__chapters" aria-label="Monograph chapters"><h2>Monograph Chapters</h2><a href="#curated-trails">01 / Curated Trails</a><a href="#visual-stories">02 / Visual Stories</a><a href="penginapan.html">03 / Penginapan</a><a href="#about-rama">04 / Studio &amp; Background</a></nav>
         <div class="site-footer__contact"><h2>Inquiries &amp; Dispatches</h2><p>Private itineraries, studio visits, and architectural field guides tailored by request.</p><a href="#inquiries">WhatsApp Dispatch <span aria-hidden="true">→</span></a><small>Pricing and availability may change. Please confirm before booking.</small></div>
       </div>
     </footer>

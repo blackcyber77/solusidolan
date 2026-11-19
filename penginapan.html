@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    <title>Daftar Penginapan | SolusiDolan.id</title>
+    <meta name="description" content="Jelajahi pilihan penginapan dan lihat harga per malam sebelum memesan.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Nunito:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@0..1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/accommodation.css">
+    <script defer src="data/accommodations.js"></script>
+    <script defer src="js/render-accommodation-list.js"></script>
+    <script defer src="js/main.js"></script>
+  </head>
+  <body class="accommodation-list-page">
+    <a class="skip-link" href="#konten">Langsung ke konten</a>
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a class="wordmark" href="index.html" aria-label="SolusiDolan.id, beranda">
+          <img class="wordmark__logo" src="assets/images/brand/logo-solusi-dolan.png" alt="" width="78" height="52">
+          <span class="wordmark__text"><span class="wordmark__brand"><span class="wordmark__solution">Solusi</span><span class="wordmark__dolan">Dolan.id</span></span><span class="wordmark__caption">Contemporary Journal</span></span>
+        </a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label="Buka menu">
+          <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+        </button>
+        <nav class="site-nav" id="site-navigation" aria-label="Navigasi utama" aria-hidden="true" inert>
+          <a class="site-nav__link" href="index.html#konten"><span class="material-symbols-outlined" aria-hidden="true">home</span><span>Beranda</span></a>
+          <a class="site-nav__link" href="index.html#curated-trails"><span class="material-symbols-outlined" aria-hidden="true">route</span><span>Itinerary</span></a>
+          <a class="site-nav__link is-active" href="penginapan.html" aria-current="page"><span class="material-symbols-outlined" aria-hidden="true">hotel</span><span>Penginapan</span></a>
+          <a class="site-nav__link" href="index.html#about-rama"><span class="material-symbols-outlined" aria-hidden="true">person</span><span>About</span></a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="konten" class="accommodation-main accommodation-list-main">
+      <section class="container" aria-labelledby="accommodation-list-title">
+        <a class="page-back" data-page-back href="index.html" aria-label="Kembali ke halaman sebelumnya">← Kembali</a>
+        <div class="accommodation-list-heading">
+          <p class="section-kicker"><span></span> SolusiDolan.id</p>
+          <h1 id="accommodation-list-title">Pilihan Penginapan</h1>
+          <p>Jelajahi penginapan, lihat harga per malam, lalu buka detail untuk informasi dan pemesanan.</p>
+        </div>
+        <div class="accommodation-list-grid" data-accommodation-list aria-live="polite"></div>
+        <p class="accommodation-list-empty" data-accommodation-empty hidden>Belum ada penginapan yang ditambahkan.</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container site-footer__grid">
+        <div class="site-footer__brand"><a class="wordmark wordmark--footer" href="index.html">SolusiDolan.id</a><p>Temukan cara yang lebih mudah untuk menikmati perjalananmu.</p><small>© <span data-current-year></span> SolusiDolan.id</small></div>
+        <nav class="site-footer__chapters" aria-label="Navigasi footer"><h2>Jelajahi</h2><a href="index.html#curated-trails">Itinerary</a><a href="index.html#stay-dossier">Rekomendasi di beranda</a></nav>
+      </div>
+    </footer>
+  </body>
+</html>

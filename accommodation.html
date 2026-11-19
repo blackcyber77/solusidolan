@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    <title>Detail Penginapan | SolusiDolan.id</title>
+    <meta name="description" content="Lihat detail rekomendasi penginapan pilihan SolusiDolan.id.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Nunito:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@0..1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/accommodation.css">
+    <script defer src="data/accommodations.js"></script>
+    <script defer src="js/config.js"></script>
+    <script defer src="js/render-accommodations.js"></script>
+    <script defer src="js/main.js"></script>
+  </head>
+  <body class="accommodation-page">
+    <a class="skip-link" href="#konten">Langsung ke konten</a>
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a class="wordmark" href="index.html" aria-label="SolusiDolan.id, beranda">
+          <img class="wordmark__logo" src="assets/images/brand/logo-solusi-dolan.png" alt="" width="78" height="52">
+          <span class="wordmark__text"><span class="wordmark__brand"><span class="wordmark__solution">Solusi</span><span class="wordmark__dolan">Dolan.id</span></span><span class="wordmark__caption">Contemporary Journal</span></span>
+        </a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label="Buka menu">
+          <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+        </button>
+        <nav class="site-nav" id="site-navigation" aria-label="Navigasi utama" aria-hidden="true" inert>
+          <a class="site-nav__link" href="index.html#konten"><span class="material-symbols-outlined" aria-hidden="true">home</span><span>Beranda</span></a>
+          <a class="site-nav__link" href="index.html#curated-trails"><span class="material-symbols-outlined" aria-hidden="true">route</span><span>Itinerary</span></a>
+          <a class="site-nav__link" href="penginapan.html"><span class="material-symbols-outlined" aria-hidden="true">hotel</span><span>Penginapan</span></a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="konten" class="accommodation-main">
+      <section class="accommodation-not-found container" data-accommodation-not-found hidden aria-live="polite">
+        <a class="page-back" data-page-back href="penginapan.html" aria-label="Kembali ke halaman sebelumnya">← Kembali</a>
+        <p class="section-kicker"><span></span> SolusiDolan.id</p>
+        <h1>Penginapan tidak ditemukan</h1>
+        <p>Silakan kembali ke beranda untuk melihat rekomendasi penginapan lainnya.</p>
+        <a class="button button--primary" href="index.html#stay-dossier">Kembali ke rekomendasi</a>
+      </section>
+
+      <article class="accommodation-detail container" data-accommodation-detail hidden>
+        <a class="page-back accommodation-detail__back" data-page-back href="penginapan.html" aria-label="Kembali ke halaman sebelumnya">← Kembali</a>
+        <div class="accommodation-detail__layout">
+          <figure class="accommodation-detail__image-wrap">
+            <img data-property-image alt="" width="1200" height="750" fetchpriority="high">
+          </figure>
+          <div class="accommodation-detail__copy">
+            <h1 data-property-name></h1>
+            <p class="accommodation-detail__promo-message">Pesan lewat aplikasi RedDoorz pakai kode promo: <strong>RDAFFRDRZAJA</strong> dan dapatkan harga special.</p>
+            <p class="accommodation-detail__room-summary" data-property-room-summary></p>
+            <p class="accommodation-detail__description" data-property-description></p>
+            <section class="accommodation-detail__info" aria-labelledby="property-facilities-title">
+              <h2 id="property-facilities-title">Fasilitas penginapan</h2>
+              <ul class="accommodation-detail__amenities" data-property-amenities></ul>
+            </section>
+            <dl class="accommodation-detail__hours">
+              <div><dt>Check-in</dt><dd data-property-check-in></dd></div>
+              <div><dt>Check-out</dt><dd data-property-check-out></dd></div>
+            </dl>
+            <p class="accommodation-detail__price" data-property-price></p>
+            <a class="accommodation-detail__map" data-property-map href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer"><span data-property-area></span><span>Buka lokasi di Google Maps ↗</span></a>
+            <a class="accommodation-detail__booking" data-property-whatsapp href="https://wa.me/" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.04 2a9.91 9.91 0 0 0-8.48 15.04L2.1 22l5.08-1.33A9.91 9.91 0 1 0 12.04 2Zm0 18.1a8.17 8.17 0 0 1-4.16-1.14l-.3-.18-3.02.8.8-2.95-.2-.3a8.17 8.17 0 1 1 6.88 3.77Zm4.49-6.12c-.25-.13-1.49-.74-1.72-.82-.23-.08-.4-.13-.57.13-.17.25-.65.82-.8.99-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.75-.67-1.25-1.5-1.4-1.75-.15-.25-.02-.38.11-.51.12-.12.25-.29.38-.44.12-.15.17-.25.25-.42.08-.17.04-.32-.02-.44-.07-.13-.57-1.38-.78-1.89-.2-.5-.41-.43-.57-.44h-.48c-.17 0-.44.06-.67.32-.23.25-.88.86-.88 2.1s.9 2.43 1.03 2.6c.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.14.16 1.57.1.48-.07 1.49-.61 1.7-1.2.21-.59.21-1.09.15-1.2-.06-.1-.23-.17-.48-.29Z"/></svg>
+              <span>Pesan sekarang</span>
+            </a>
+            <p class="accommodation-detail__note">Harga dan ketersediaan dapat berubah. Konfirmasi detail pemesanan melalui WhatsApp.</p>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container site-footer__grid">
+        <div class="site-footer__brand"><a class="wordmark wordmark--footer" href="index.html">SolusiDolan.id</a><p>Temukan cara yang lebih mudah untuk menikmati perjalananmu.</p><small>© <span data-current-year></span> SolusiDolan.id</small></div>
+        <nav class="site-footer__chapters" aria-label="Navigasi footer"><h2>Jelajahi</h2><a href="index.html#curated-trails">Itinerary</a><a href="penginapan.html">Penginapan</a></nav>
+      </div>
+    </footer>
+  </body>
+</html>

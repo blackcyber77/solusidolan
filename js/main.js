@@ -7,6 +7,23 @@ if (currentYear) {
   currentYear.textContent = String(new Date().getFullYear());
 }
 
+document.querySelectorAll("[data-page-back]").forEach((pageBack) => {
+  pageBack.addEventListener("click", (event) => {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    if (!document.referrer || window.history.length < 2) return;
+
+    try {
+      const previousPage = new URL(document.referrer);
+      if (previousPage.origin === window.location.origin && previousPage.href !== window.location.href) {
+        event.preventDefault();
+        window.history.back();
+      }
+    } catch {
+      // Keep the link's fallback destination if the referrer cannot be read.
+    }
+  });
+});
+
 if (menuToggle && siteNavigation && menuIcon) {
   const setMenuOpen = (isOpen, restoreFocus = false) => {
     menuToggle.setAttribute("aria-expanded", String(isOpen));
