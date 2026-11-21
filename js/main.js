@@ -3,6 +3,16 @@ const menuToggle = document.querySelector(".nav-toggle");
 const siteNavigation = document.querySelector("#site-navigation");
 const menuIcon = menuToggle?.querySelector(".material-symbols-outlined");
 
+try {
+  if (sessionStorage.getItem("solusidolan-list-arrival") === "1") {
+    sessionStorage.removeItem("solusidolan-list-arrival");
+    document.body.classList.add("is-arriving");
+    window.setTimeout(() => document.body.classList.remove("is-arriving"), 1100);
+  }
+} catch {
+  // Navigasi tetap berjalan jika session storage tidak tersedia.
+}
+
 if (currentYear) {
   currentYear.textContent = String(new Date().getFullYear());
 }
@@ -55,6 +65,20 @@ document.querySelectorAll("[data-page-back]").forEach((pageBack) => {
   });
 });
 
+document.addEventListener("click", (event) => {
+  if (!(event.target instanceof Element)) return;
+  const link = event.target.closest('a[href="penginapan.html"]');
+  if (!link || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || link.target === "_blank") return;
+
+  const destination = new URL(link.href, window.location.href);
+  if (destination.pathname === window.location.pathname) return;
+  try {
+    sessionStorage.setItem("solusidolan-list-arrival", "1");
+  } catch {
+    // Navigasi tetap berjalan tanpa animasi kedatangan khusus.
+  }
+});
+
 if (menuToggle && siteNavigation && menuIcon) {
   const setMenuOpen = (isOpen, restoreFocus = false) => {
     menuToggle.setAttribute("aria-expanded", String(isOpen));
@@ -77,9 +101,10 @@ if (menuToggle && siteNavigation && menuIcon) {
   });
 
   siteNavigation.addEventListener("click", (event) => {
-    if (event.target instanceof Element && event.target.closest("a")) {
-      setMenuOpen(false);
-    }
+    if (!(event.target instanceof Element)) return;
+    const link = event.target.closest("a");
+    if (!link) return;
+    setMenuOpen(false);
   });
 
   document.addEventListener("pointerdown", (event) => {

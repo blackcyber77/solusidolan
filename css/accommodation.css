@@ -43,6 +43,67 @@
   box-shadow: var(--shadow-card-hover);
 }
 
+.accommodation-list-page.is-arriving .accommodation-list-heading {
+  animation: accommodation-heading-arrive 680ms 70ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.accommodation-list-page.is-arriving .accommodation-card {
+  --arrival-x: 0px;
+  --arrival-rotation: 0deg;
+  animation: accommodation-card-converge 700ms 100ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.accommodation-list-page.is-arriving .accommodation-card:nth-child(6n + 1) {
+  --arrival-x: -42px;
+  --arrival-rotation: -3deg;
+  animation-delay: 100ms;
+}
+
+.accommodation-list-page.is-arriving .accommodation-card:nth-child(6n + 2) {
+  --arrival-x: 28px;
+  --arrival-rotation: 2deg;
+  animation-delay: 165ms;
+}
+
+.accommodation-list-page.is-arriving .accommodation-card:nth-child(6n + 3) {
+  --arrival-x: 42px;
+  --arrival-rotation: 3deg;
+  animation-delay: 230ms;
+}
+
+.accommodation-list-page.is-arriving .accommodation-card:nth-child(6n + 4) {
+  --arrival-x: -28px;
+  --arrival-rotation: -2deg;
+  animation-delay: 295ms;
+}
+
+.accommodation-list-page.is-arriving .accommodation-card:nth-child(6n + 5) {
+  --arrival-x: 32px;
+  --arrival-rotation: 2deg;
+  animation-delay: 360ms;
+}
+
+.accommodation-list-page.is-arriving .accommodation-card:nth-child(6n + 6) {
+  --arrival-x: -32px;
+  --arrival-rotation: -2deg;
+  animation-delay: 425ms;
+}
+
+@keyframes accommodation-heading-arrive {
+  from { opacity: 0; transform: translateY(18px) scale(0.97); filter: blur(3px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+@keyframes accommodation-card-converge {
+  from {
+    opacity: 0;
+    transform: translate3d(var(--arrival-x), 32px, 0) scale(0.91) rotate(var(--arrival-rotation));
+    filter: blur(2px);
+  }
+  72% { opacity: 1; filter: blur(0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1) rotate(0); filter: blur(0); }
+}
+
 .accommodation-card--draft {
   border: 1px dashed var(--color-primary);
   box-shadow: none;
@@ -506,6 +567,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .accommodation-list-page.is-arriving .accommodation-list-heading,
+  .accommodation-list-page.is-arriving .accommodation-card {
+    animation: none;
+  }
+
   .accommodation-card {
     transition: none;
   }
