@@ -38,9 +38,28 @@
   transition: box-shadow var(--motion-duration) ease, transform var(--motion-duration) ease;
 }
 
-.accommodation-card:hover {
+.accommodation-card:not(.accommodation-card--draft):hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow-card-hover);
+}
+
+.accommodation-card--draft {
+  border: 1px dashed var(--color-primary);
+  box-shadow: none;
+  cursor: default;
+}
+
+.accommodation-card__draft-badge {
+  align-self: flex-start;
+  margin-bottom: var(--space-2);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-button);
+  background: var(--color-promo-surface);
+  color: var(--color-promo-ink);
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
 }
 
 .accommodation-card__image {
@@ -125,6 +144,9 @@
 }
 
 .accommodation-detail__image-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
   aspect-ratio: 4 / 3;
   overflow: hidden;
   margin: 0;
@@ -132,10 +154,149 @@
   background: var(--color-surface-card);
 }
 
-.accommodation-detail__image-wrap img {
+.accommodation-gallery__viewport {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  touch-action: pan-y;
+}
+
+.accommodation-gallery__open {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+
+.accommodation-gallery__open img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.accommodation-gallery__control {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  transform: translateY(-50%);
+  border: 1px solid rgb(255 255 255 / 75%);
+  border-radius: 50%;
+  background: rgb(12 30 48 / 70%);
+  color: white;
+  font-size: 32px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.accommodation-gallery__control--previous { left: var(--space-3); }
+.accommodation-gallery__control--next { right: var(--space-3); }
+
+.accommodation-gallery__caption {
+  display: flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-surface-card);
+  color: var(--color-muted);
+  font-size: 13px;
+}
+
+.accommodation-gallery__caption span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.accommodation-lightbox {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  max-width: none;
+  height: 100vh;
+  max-height: none;
+  padding: clamp(12px, 3vw, 32px);
+  border: 0;
+  background: #07111d;
+  color: white;
+}
+
+.accommodation-lightbox::backdrop { background: #07111d; }
+
+.accommodation-lightbox[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.accommodation-lightbox__toolbar {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-family: var(--font-heading);
+}
+
+.accommodation-lightbox__close {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 35%);
+  border-radius: 50%;
+  background: transparent;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.accommodation-lightbox__stage {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(8px, 3vw, 32px);
+  touch-action: pan-y;
+}
+
+.accommodation-lightbox__stage img {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  object-fit: contain;
+}
+
+.accommodation-lightbox__control {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 35%);
+  border-radius: 50%;
+  background: rgb(255 255 255 / 10%);
+  color: white;
+  font-size: 34px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.accommodation-lightbox__caption {
+  min-height: 24px;
+  margin: 10px 0 0;
+  color: rgb(255 255 255 / 78%);
+  text-align: center;
 }
 
 .accommodation-detail__copy {

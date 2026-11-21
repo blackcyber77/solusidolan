@@ -12,12 +12,13 @@
     let pointerStartX = null;
     let suppressClick = false;
 
-    stays.forEach((stay, index) => {
+    const publishedStays = stays.filter((stay) => !stay.isDraft);
+    publishedStays.slice(0, 3).forEach((stay, index, homeStays) => {
       const card = document.createElement("article");
       card.className = "stay-feature";
       card.setAttribute("role", "group");
       card.setAttribute("aria-roledescription", "slide");
-      card.setAttribute("aria-label", `${index + 1} dari ${stays.length}: ${stay.property}`);
+      card.setAttribute("aria-label", `${index + 1} dari ${homeStays.length}: ${stay.property}`);
 
       const imageFrame = document.createElement("div");
       imageFrame.className = "stay-feature__image";
@@ -118,7 +119,7 @@
   if (!detail) return;
 
   const slug = new URLSearchParams(window.location.search).get("slug");
-  const stay = stays.find((item) => item.slug === slug);
+  const stay = stays.find((item) => item.slug === slug && !item.isDraft);
   const notFound = document.querySelector("[data-accommodation-not-found]");
   if (!stay) {
     if (notFound) notFound.hidden = false;
@@ -151,11 +152,76 @@
     });
   }
 
-  const image = detail.querySelector("[data-property-image]");
-  if (image && stay.images?.[0]) {
-    image.src = stay.images[0].src;
-    image.alt = stay.images[0].alt || `Foto ${stay.property}`;
-  }
+  const photos = Array.isArray(stay.images) ? stay.images.filter((photo) => photo?.src) : [];
+  const gallery = detail.querySelector("[data-accommodation-gallery]");
+  const galleryDialog = document.querySelector("[data-gallery-dialog]");
+  const mainImage = detail.querySelector("[data-property-image]");
+  const fullImage = galleryDialog?.querySelector("[data-gallery-full-image]");
+  const galleryCaption = detail.querySelector("[data-gallery-caption]");
+  const galleryCount = detail.querySelector("[data-gallery-count]");
+  const fullCaption = galleryDialog?.querySelector("[data-gallery-full-caption]");
+  const fullCount = galleryDialog?.querySelector("[data-gallery-full-count]");
+  let photoIndex = 0;
+  const showPhoto = (index) => {
+    if (!photos.length) return;
+    photoIndex = (index + photos.length) % photos.length;
+    const photo = photos[photoIndex];
+    const alt = photo.alt || `Foto ${stay.property}`;
+    if (mainImage) {
+      mainImage.src = photo.src;
+      mainImage.alt = alt;
+    }
+    if (fullImage) {
+      fullImage.src = photo.src;
+      fullImage.alt = alt;
+    }
+    if (galleryCaption) galleryCaption.textContent = alt;
+    if (fullCaption) fullCaption.textContent = alt;
+    if (galleryCount) galleryCount.textContent = `${photoIndex + 1} / ${photos.length}`;
+    if (fullCount) fullCount.textContent = `${stay.property} · ${photoIndex + 1} / ${photos.length}`;
+    gallery?.querySelectorAll("[data-gallery-previous], [data-gallery-next]").forEach((button) => {
+      button.hidden = photos.length < 2;
+    });
+    galleryDialog?.querySelectorAll("[data-gallery-full-previous], [data-gallery-full-next]").forEach((button) => {
+      button.hidden = photos.length < 2;
+    });
+  };
+  const previousPhoto = () => showPhoto(photoIndex - 1);
+  const nextPhoto = () => showPhoto(photoIndex + 1);
+  const openGallery = detail.querySelector("[data-gallery-open]");
+  const closeGallery = galleryDialog?.querySelector("[data-gallery-close]");
+  detail.querySelector("[data-gallery-previous]")?.addEventListener("click", previousPhoto);
+  detail.querySelector("[data-gallery-next]")?.addEventListener("click", nextPhoto);
+  galleryDialog?.querySelector("[data-gallery-full-previous]")?.addEventListener("click", previousPhoto);
+  galleryDialog?.querySelector("[data-gallery-full-next]")?.addEventListener("click", nextPhoto);
+  openGallery?.addEventListener("click", () => {
+    if (!galleryDialog?.showModal) return;
+    showPhoto(photoIndex);
+    galleryDialog.showModal();
+    closeGallery?.focus();
+  });
+  closeGallery?.addEventListener("click", () => galleryDialog.close());
+  galleryDialog?.addEventListener("click", (event) => {
+    if (event.target === galleryDialog) galleryDialog.close();
+  });
+  galleryDialog?.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft") previousPhoto();
+    if (event.key === "ArrowRight") nextPhoto();
+  });
+  const addSwipe = (node) => {
+    let startX = null;
+    node?.addEventListener("pointerdown", (event) => { startX = event.clientX; });
+    node?.addEventListener("pointerup", (event) => {
+      if (startX === null) return;
+      const deltaX = event.clientX - startX;
+      startX = null;
+      if (Math.abs(deltaX) > 45) (deltaX < 0 ? nextPhoto : previousPhoto)();
+    });
+    node?.addEventListener("pointercancel", () => { startX = null; });
+  };
+  addSwipe(detail.querySelector("[data-gallery-viewport]"));
+  addSwipe(galleryDialog?.querySelector("[data-gallery-full-viewport]"));
+  showPhoto(0);
 
   const mapLink = detail.querySelector("[data-property-map]");
   if (mapLink) {

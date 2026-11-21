@@ -212,20 +212,9 @@
 
     const chips = createElement("div", "timeline-stop__chips");
     chips.append(createElement("span", "", formatDuration(Number(stop.duration) || 0)));
-    if (stop.openHours) {
-      chips.append(createElement("span", "", `Buka: ${stop.openHours}`));
-    }
-
     card.append(heading, chips);
     if (stop.desc) {
       card.append(createElement("p", "timeline-stop__description", stop.desc));
-    }
-    card.append(renderPhotos(stop), renderCosts(stop.costs));
-
-    if (stop.tip) {
-      const tip = createElement("aside", "timeline-stop__tip");
-      tip.append(createElement("strong", "", "Tips"), createElement("p", "", stop.tip));
-      card.append(tip);
     }
 
     const locationUrl = buildLocationUrl(stop.place);
@@ -239,6 +228,36 @@
 
     row.append(time, card);
     return row;
+  };
+
+  const renderRouteIllustration = (day) => {
+    const section = createElement("section", "route-sketch");
+    section.append(createElement("h3", "route-sketch__title", "Rute perjalanan"));
+    const route = createElement("ol", "route-sketch__list");
+    const dayStops = Array.isArray(day.stops) ? day.stops : [];
+
+    dayStops.forEach((stop, index) => {
+      const node = createElement("li", "route-sketch__node");
+      node.append(
+        createElement("span", "route-sketch__number", String(index + 1).padStart(2, "0")),
+        createElement("span", "route-sketch__name", stop.name)
+      );
+      route.append(node);
+
+      if (stop.travelNext && index < dayStops.length - 1) {
+        const travel = stop.travelNext;
+        const facts = [travel.mode, `± ${travel.minutes} menit`];
+        if (Number.isFinite(Number(travel.km))) facts.push(`${travel.km} km`);
+        const leg = createElement("li", "route-sketch__leg");
+        leg.setAttribute("aria-label", `Perjalanan: ${facts.join(", ")}`);
+        leg.append(createElement("span", "route-sketch__line", "↓"));
+        leg.append(createElement("span", "route-sketch__travel", facts.join(" · ")));
+        route.append(leg);
+      }
+    });
+
+    section.append(route);
+    return section;
   };
 
   const renderTravelBreak = (travel) => {
@@ -429,6 +448,35 @@
     return card;
   };
 
+  const renderItineraryStay = (stay) => {
+    const card = createElement("article", "itinerary-stay-card");
+    const image = document.createElement("img");
+    const photo = stay.images?.[0];
+    if (photo?.src) {
+      image.src = photo.src;
+      image.alt = photo.alt || `Foto ${stay.property}`;
+      image.width = 800;
+      image.height = 600;
+      image.loading = "lazy";
+      image.decoding = "async";
+      card.append(image);
+    } else {
+      card.append(createElement("div", "itinerary-stay-card__image-empty", "Foto penginapan belum tersedia"));
+    }
+
+    const details = createElement("div", "itinerary-stay-card__details");
+    details.append(createElement("p", "itinerary-kicker", stay.area || "Penginapan pilihan"));
+    details.append(createElement("h3", "", stay.property));
+    details.append(createElement("p", "itinerary-stay-card__price", stay.priceLabel || (hasAmount(stay.priceFrom)
+      ? `Mulai ${formatMoney(stay.priceFrom)} / malam`
+      : "Harga belum tersedia")));
+    const link = createElement("a", "button button--primary", "Lihat penginapan");
+    link.href = `accommodation.html?slug=${encodeURIComponent(stay.slug)}`;
+    details.append(link);
+    card.append(details);
+    return card;
+  };
+
   const stops = (itinerary.days || []).flatMap((day) => day.stops || []);
   const totalMinutes = stops.reduce((total, stop) => total + (Number(stop.duration) || 0), 0);
   const allCosts = stops.flatMap((stop) => Array.isArray(stop.costs) ? stop.costs : [])
@@ -467,28 +515,103 @@
     descriptionMeta.setAttribute("content", itinerary.summary || itinerary.title);
   }
 
-  const coverImage = document.querySelector("[data-cover]");
-  coverImage.src = cover.src;
-  coverImage.alt = cover.alt || itinerary.title;
-  coverImage.addEventListener("error", () => {
-    document.querySelector(".itinerary-hero")?.classList.add("is-image-fallback");
-  }, { once: true });
+  const heroCarousel = document.querySelector("[data-hero-carousel]");
+  const heroSection = document.querySelector(".itinerary-hero");
+  const heroSlides = document.querySelector("[data-hero-slides]");
+  const heroPlace = document.querySelector("[data-hero-place]");
+  const heroCredit = document.querySelector("[data-hero-credit]");
+  const heroControls = document.querySelector("[data-hero-controls]");
+  const heroCounter = document.querySelector("[data-hero-counter]");
+  const heroDots = document.querySelector("[data-hero-dots]");
+  const stopPhotos = (itinerary.days || []).flatMap((day) => day.stops || [])
+    .flatMap((stop) => (Array.isArray(stop.photos) ? stop.photos : []).map((photo) => ({ ...photo, placeName: stop.name })));
+  const heroPhotos = [
+    ...(Array.isArray(itinerary.heroImages) ? itinerary.heroImages.map((photo) => ({
+      ...photo,
+      placeName: photo.placeName || photo.name || itinerary.title
+    })) : []),
+    ...stopPhotos
+  ].filter((photo) => photo.src);
+  if (!heroPhotos.length && cover?.src) {
+    heroPhotos.push({ src: cover.src, alt: cover.alt || itinerary.title, placeName: itinerary.title });
+  }
+
+  const heroSlideNodes = heroPhotos.map((photo, index) => {
+    const slide = createElement("div", "itinerary-hero__slide");
+    const image = document.createElement("img");
+    image.src = photo.src;
+    image.alt = photo.alt || photo.placeName || itinerary.title;
+    image.width = 1920;
+    image.height = 1080;
+    image.loading = index === 0 ? "eager" : "lazy";
+    image.decoding = "async";
+    slide.append(image);
+    heroSlides.append(slide);
+    return slide;
+  });
+
+  let activeHeroIndex = 0;
+  let heroTimer = 0;
+  const setHeroSlide = (index) => {
+    if (!heroSlideNodes.length) return;
+    activeHeroIndex = (index + heroSlideNodes.length) % heroSlideNodes.length;
+    heroSlideNodes.forEach((slide, slideIndex) => {
+      slide.setAttribute("aria-hidden", String(slideIndex !== activeHeroIndex));
+    });
+    heroSlides.style.transform = `translateX(${-activeHeroIndex * heroCarousel.clientWidth}px)`;
+    const photoCredit = heroPhotos[activeHeroIndex];
+    heroPlace.textContent = photoCredit.placeName && photoCredit.placeName !== itinerary.title
+      ? photoCredit.placeName
+      : "";
+    heroCredit.textContent = photoCredit.credit ? `Foto: ${photoCredit.credit}` : "";
+    heroCredit.hidden = !photoCredit.credit;
+    if (photoCredit.sourceUrl) {
+      heroCredit.href = photoCredit.sourceUrl;
+    } else {
+      heroCredit.removeAttribute("href");
+    }
+    heroCounter.textContent = `${activeHeroIndex + 1} / ${heroPhotos.length}`;
+    heroDots.querySelectorAll("button").forEach((dot, dotIndex) => {
+      dot.setAttribute("aria-current", String(dotIndex === activeHeroIndex));
+    });
+  };
+
+  if (heroPhotos.length > 1) {
+    heroControls.hidden = false;
+    heroPhotos.forEach((photo, index) => {
+      const dot = createElement("button", "itinerary-hero__dot");
+      dot.type = "button";
+      dot.setAttribute("aria-label", `Tampilkan foto ${photo.placeName || index + 1}`);
+      dot.addEventListener("click", () => setHeroSlide(index));
+      heroDots.append(dot);
+    });
+    document.querySelector("[data-hero-previous]").addEventListener("click", () => setHeroSlide(activeHeroIndex - 1));
+    document.querySelector("[data-hero-next]").addEventListener("click", () => setHeroSlide(activeHeroIndex + 1));
+
+    const stopHeroAutoSlide = () => window.clearInterval(heroTimer);
+    const startHeroAutoSlide = () => {
+      stopHeroAutoSlide();
+      if (document.hidden || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      heroTimer = window.setInterval(() => setHeroSlide(activeHeroIndex + 1), 5000);
+    };
+    heroSection.addEventListener("mouseenter", stopHeroAutoSlide);
+    heroSection.addEventListener("mouseleave", startHeroAutoSlide);
+    heroSection.addEventListener("focusin", stopHeroAutoSlide);
+    heroSection.addEventListener("focusout", startHeroAutoSlide);
+    document.addEventListener("visibilitychange", startHeroAutoSlide);
+    startHeroAutoSlide();
+  } else {
+    heroControls.hidden = true;
+  }
+  setHeroSlide(0);
+  window.addEventListener("resize", () => setHeroSlide(activeHeroIndex));
 
   document.querySelector("[data-region]").textContent = itinerary.region || itinerary.category || "Yogyakarta";
   document.querySelector("[data-title]").textContent = itinerary.title;
-  document.querySelector("[data-summary]").textContent = itinerary.summary || "";
   document.querySelector("[data-intro]").textContent = itinerary.intro || itinerary.summary || "";
   document.querySelector("[data-stat-stops]").textContent = String(stops.length);
   document.querySelector("[data-stat-time]").textContent = durationLabel;
   document.querySelector("[data-stat-price]").textContent = priceLabel;
-
-  const heroChips = document.querySelector("[data-hero-chips]");
-  [
-    itinerary.duration,
-    ...(itinerary.theme || []),
-    `${stops.length} destinasi`,
-    `${priceLabel} / orang`
-  ].filter(Boolean).forEach((label) => heroChips.append(createElement("li", "", label)));
 
   const bestFor = document.querySelector("[data-best-for]");
   (itinerary.bestFor || []).forEach((label) => bestFor.append(createElement("li", "", label)));
@@ -516,10 +639,19 @@
   const rooms = Array.isArray(itinerary.rooms) ? itinerary.rooms : [];
   const lodgingSection = document.querySelector("#penginapan");
   const roomGrid = document.querySelector("[data-room-grid]");
-  if (rooms.length) {
+  const availableStays = (window.ACCOMMODATIONS || []).filter((stay) => !stay.isDraft);
+  const recommendedSlugs = Array.isArray(itinerary.accommodationSlugs) ? itinerary.accommodationSlugs : [];
+  const recommendedStays = recommendedSlugs.length
+    ? recommendedSlugs.map((staySlug) => availableStays.find((stay) => stay.slug === staySlug)).filter(Boolean)
+    : availableStays.slice(0, 3);
+  if (rooms.length || recommendedStays.length) {
     lodgingSection.hidden = false;
     document.querySelector("[data-accommodation-cta]").hidden = false;
-    rooms.forEach((room, index) => roomGrid.append(renderRoomCard(room, index)));
+    if (rooms.length) {
+      rooms.forEach((room, index) => roomGrid.append(renderRoomCard(room, index)));
+    } else {
+      recommendedStays.forEach((stay) => roomGrid.append(renderItineraryStay(stay)));
+    }
     const accommodationLink = createElement("a", "", "Lihat rekomendasi kamar");
     accommodationLink.href = "#penginapan";
     accommodationCell.append(accommodationLink);
@@ -566,17 +698,12 @@
       daySection.append(createElement("p", "", day.summary));
     }
 
-    const routeContainer = createElement("div", "day-route-map");
-    window.RouteMap?.renderRouteMap(routeContainer, day, window.SITE_CONFIG?.mapsApiKey || "");
-    daySection.append(routeContainer);
+    daySection.append(renderRouteIllustration(day));
 
     const timeline = createElement("div", "day-timeline");
     const dayStops = Array.isArray(day.stops) ? day.stops : [];
     dayStops.forEach((stop, stopIndex) => {
       timeline.append(renderStop(stop, stopIndex));
-      if (stop.travelNext && stopIndex < dayStops.length - 1) {
-        timeline.append(renderTravelBreak(stop.travelNext));
-      }
     });
     daySection.append(timeline);
     dayOverviews.append(daySection);

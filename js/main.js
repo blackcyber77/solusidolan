@@ -7,6 +7,37 @@ if (currentYear) {
   currentYear.textContent = String(new Date().getFullYear());
 }
 
+const siteConfig = window.SITE_CONFIG || {};
+document.querySelectorAll("[data-social-link]").forEach((link) => {
+  const platform = link.dataset.socialLink;
+  const url = siteConfig.socialLinks?.[platform];
+  if (url) {
+    link.href = url;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+  } else {
+    link.removeAttribute("href");
+    link.setAttribute("aria-disabled", "true");
+    link.title = `Tautan ${platform} belum diatur`;
+  }
+});
+
+const footerWhatsApp = document.querySelector("[data-footer-whatsapp]");
+if (footerWhatsApp) {
+  const number = (siteConfig.waNumber || "").replace(/\D/g, "");
+  const label = footerWhatsApp.querySelector("[data-footer-whatsapp-label]");
+  if (number) {
+    footerWhatsApp.href = `https://wa.me/${number}`;
+    footerWhatsApp.target = "_blank";
+    footerWhatsApp.rel = "noopener noreferrer";
+    if (label) label.textContent = `+${number}`;
+  } else {
+    footerWhatsApp.removeAttribute("href");
+    footerWhatsApp.setAttribute("aria-disabled", "true");
+    if (label) label.textContent = "Nomor WhatsApp belum diatur";
+  }
+}
+
 document.querySelectorAll("[data-page-back]").forEach((pageBack) => {
   pageBack.addEventListener("click", (event) => {
     if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
