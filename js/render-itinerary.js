@@ -230,11 +230,27 @@
     return row;
   };
 
-  const renderRouteIllustration = (day) => {
+  const renderRouteIllustration = (day, startingStay) => {
     const section = createElement("section", "route-sketch");
     section.append(createElement("h3", "route-sketch__title", "Rute perjalanan"));
     const route = createElement("ol", "route-sketch__list");
     const dayStops = Array.isArray(day.stops) ? day.stops : [];
+
+    if (startingStay) {
+      const node = createElement("li", "route-sketch__node route-sketch__node--stay");
+      node.append(
+        createElement("span", "route-sketch__number", "00"),
+        createElement("span", "route-sketch__name", startingStay.property)
+      );
+      route.append(node);
+      if (dayStops.length) {
+        const leg = createElement("li", "route-sketch__leg");
+        leg.setAttribute("aria-label", `Berangkat dari penginapan ${startingStay.property}`);
+        leg.append(createElement("span", "route-sketch__line", "↓"));
+        leg.append(createElement("span", "route-sketch__travel", "Mulai dari penginapan"));
+        route.append(leg);
+      }
+    }
 
     dayStops.forEach((stop, index) => {
       const node = createElement("li", "route-sketch__node");
@@ -644,6 +660,30 @@
   const recommendedStays = recommendedSlugs.length
     ? recommendedSlugs.map((staySlug) => availableStays.find((stay) => stay.slug === staySlug)).filter(Boolean)
     : availableStays.slice(0, 3);
+  const startingStay = recommendedStays[0] || null;
+  const featuredStay = document.querySelector("[data-recommended-stay]");
+  if (featuredStay && startingStay) {
+    featuredStay.hidden = false;
+    const link = createElement("a", "recommended-stay__link");
+    link.href = `accommodation.html?slug=${encodeURIComponent(startingStay.slug)}`;
+    const photo = startingStay.images?.[0];
+    if (photo?.src) {
+      const image = document.createElement("img");
+      image.src = photo.src;
+      image.alt = photo.alt || `Foto ${startingStay.property}`;
+      image.loading = "lazy";
+      image.decoding = "async";
+      link.append(image);
+    }
+    const details = createElement("span", "recommended-stay__details");
+    details.append(
+      createElement("span", "recommended-stay__label", "Mulai dari penginapan ini"),
+      createElement("strong", "", startingStay.property),
+      createElement("span", "recommended-stay__action", "Lihat detail →")
+    );
+    link.append(details);
+    featuredStay.append(link);
+  }
   if (rooms.length || recommendedStays.length) {
     lodgingSection.hidden = false;
     document.querySelector("[data-accommodation-cta]").hidden = false;
@@ -694,18 +734,7 @@
     const dayLabel = createElement("p", "itinerary-kicker", `Hari ${index + 1}`);
     const dayTitle = createElement("h2", "", day.title);
     daySection.append(dayLabel, dayTitle);
-    if (day.summary) {
-      daySection.append(createElement("p", "", day.summary));
-    }
-
-    daySection.append(renderRouteIllustration(day));
-
-    const timeline = createElement("div", "day-timeline");
-    const dayStops = Array.isArray(day.stops) ? day.stops : [];
-    dayStops.forEach((stop, stopIndex) => {
-      timeline.append(renderStop(stop, stopIndex));
-    });
-    daySection.append(timeline);
+    daySection.append(renderRouteIllustration(day, startingStay));
     dayOverviews.append(daySection);
   });
 

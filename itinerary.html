@@ -53,8 +53,8 @@
             <div class="itinerary-hero__slides" data-hero-slides></div>
           </div>
           <div class="itinerary-hero__scrim" aria-hidden="true"></div>
+          <a class="itinerary-hero__back page-back container" href="index.html" aria-label="Kembali ke halaman sebelumnya">← Kembali</a>
           <div class="itinerary-hero__content container">
-            <a class="itinerary-hero__back" href="index.html">← Semua perjalanan</a>
             <p class="itinerary-kicker" data-region></p>
             <p class="itinerary-hero__place" data-hero-place aria-live="polite"></p>
             <a class="itinerary-hero__credit" data-hero-credit target="_blank" rel="noopener noreferrer" hidden></a>
@@ -89,6 +89,8 @@
           </div>
         </section>
 
+        <section class="recommended-stay container" data-recommended-stay aria-label="Penginapan awal rute" hidden></section>
+
         <nav class="day-navigation" id="navigasi-hari" aria-label="Navigasi hari">
           <div class="container day-navigation__inner">
             <span class="day-navigation__label">Rencana perjalanan</span>
@@ -98,9 +100,18 @@
 
         <section class="day-overview section" aria-labelledby="days-title">
           <div class="container">
-            <p class="itinerary-kicker">Dari pagi hingga senja</p>
-            <h2 id="days-title">Rangkaian hari</h2>
+            <p class="itinerary-kicker">Rute perjalanan</p>
+            <h2 id="days-title">Urutan perjalanan</h2>
             <div class="day-overview__list" data-day-overviews></div>
+          </div>
+        </section>
+
+        <section class="route-upload container" aria-labelledby="route-upload-title">
+          <h2 id="route-upload-title">Peta rute</h2>
+          <div class="route-upload__placeholder" role="img" aria-label="Tempat untuk gambar rute dari Google Maps">
+            <span class="material-symbols-outlined" aria-hidden="true">map</span>
+            <p>Tempat gambar rute dari Maps</p>
+            <small>Gambar peta bisa ditambahkan di sini</small>
           </div>
         </section>
 
