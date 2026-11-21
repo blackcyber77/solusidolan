@@ -156,13 +156,25 @@
   const gallery = detail.querySelector("[data-accommodation-gallery]");
   const galleryDialog = document.querySelector("[data-gallery-dialog]");
   const mainImage = detail.querySelector("[data-property-image]");
+  if (mainImage) mainImage.style.viewTransitionName = `stay-${stay.slug}`;
   const fullImage = galleryDialog?.querySelector("[data-gallery-full-image]");
   const galleryCaption = detail.querySelector("[data-gallery-caption]");
   const galleryCount = detail.querySelector("[data-gallery-count]");
   const fullCaption = galleryDialog?.querySelector("[data-gallery-full-caption]");
   const fullCount = galleryDialog?.querySelector("[data-gallery-full-count]");
   let photoIndex = 0;
-  const showPhoto = (index) => {
+  const animatePhoto = (image, direction) => {
+    if (!image || !direction || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    image.getAnimations().forEach((animation) => animation.cancel());
+    image.animate(
+      [
+        { opacity: 0.55, transform: `translateX(${direction * 18}px) scale(0.99)` },
+        { opacity: 1, transform: "translateX(0) scale(1)" }
+      ],
+      { duration: 320, easing: "cubic-bezier(0.22, 0.61, 0.36, 1)" }
+    );
+  };
+  const showPhoto = (index, direction = 0) => {
     if (!photos.length) return;
     photoIndex = (index + photos.length) % photos.length;
     const photo = photos[photoIndex];
@@ -170,10 +182,12 @@
     if (mainImage) {
       mainImage.src = photo.src;
       mainImage.alt = alt;
+      animatePhoto(mainImage, direction);
     }
     if (fullImage) {
       fullImage.src = photo.src;
       fullImage.alt = alt;
+      animatePhoto(fullImage, direction);
     }
     if (galleryCaption) galleryCaption.textContent = alt;
     if (fullCaption) fullCaption.textContent = alt;
@@ -186,8 +200,8 @@
       button.hidden = photos.length < 2;
     });
   };
-  const previousPhoto = () => showPhoto(photoIndex - 1);
-  const nextPhoto = () => showPhoto(photoIndex + 1);
+  const previousPhoto = () => showPhoto(photoIndex - 1, -1);
+  const nextPhoto = () => showPhoto(photoIndex + 1, 1);
   const openGallery = detail.querySelector("[data-gallery-open]");
   const closeGallery = galleryDialog?.querySelector("[data-gallery-close]");
   detail.querySelector("[data-gallery-previous]")?.addEventListener("click", previousPhoto);

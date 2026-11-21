@@ -25,6 +25,7 @@
     if (photo?.src) {
       const image = document.createElement("img");
       image.src = photo.src;
+      image.style.viewTransitionName = `stay-${stay.slug}`;
       image.alt = photo.alt || `Foto ${stay.property}`;
       image.width = 800;
       image.height = 600;

@@ -366,3 +366,31 @@
     animation: none;
   }
 }
+
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root) {
+  animation: accommodation-page-out 160ms ease-in both;
+}
+
+::view-transition-new(root) {
+  animation: accommodation-page-in 260ms ease-out both;
+}
+
+@keyframes accommodation-page-out {
+  to { opacity: 0; }
+}
+
+@keyframes accommodation-page-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 1ms;
+  }
+}
