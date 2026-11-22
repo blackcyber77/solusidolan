@@ -29,7 +29,7 @@
 
 @media (min-width: 768px) {
   .hero__visual img {
-    /* On wide screens, favor the two partner marks in the portrait source. */
+    /* Keep the partner marks near the visual center on wide screens. */
     object-position: center 44%;
   }
 }
@@ -103,7 +103,7 @@
   font-size: 16px;
 }
 
-@media (max-width: 599px) {
+@media (max-width: 767px), (max-aspect-ratio: 4 / 3), (max-height: 500px) and (max-width: 950px) {
   .hero {
     height: auto;
     min-height: 0;
@@ -119,9 +119,13 @@
   .hero__visual img {
     display: block;
     height: auto;
-    margin-top: var(--space-3);
+    margin-top: 0;
     object-fit: contain;
     animation: none;
+  }
+
+  .hero__visual {
+    padding-top: 80px;
   }
 
   .hero__scrim {

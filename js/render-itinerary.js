@@ -217,6 +217,16 @@
       card.append(createElement("p", "timeline-stop__description", stop.desc));
     }
 
+    if (stop.tip) {
+      const tip = createElement("aside", "timeline-stop__tip");
+      tip.append(createElement("strong", "", "Catatan"), createElement("p", "", stop.tip));
+      card.append(tip);
+    }
+
+    if (Array.isArray(stop.photos) && stop.photos.length) {
+      card.append(renderPhotos(stop));
+    }
+
     const locationUrl = buildLocationUrl(stop.place);
     if (locationUrl) {
       const locationLink = createElement("a", "timeline-stop__map-link", "Lihat lokasi di Google Maps ↗");
@@ -735,6 +745,9 @@
     const dayTitle = createElement("h2", "", day.title);
     daySection.append(dayLabel, dayTitle);
     daySection.append(renderRouteIllustration(day, startingStay));
+    const timeline = createElement("div", "day-timeline");
+    (day.stops || []).forEach((stop, stopIndex) => timeline.append(renderStop(stop, stopIndex)));
+    daySection.append(timeline);
     dayOverviews.append(daySection);
   });
 
