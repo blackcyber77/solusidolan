@@ -23,8 +23,8 @@ window.ACCOMMODATIONS = [
     slug: "sans-mataram", property: "Sans Hotel Mataram Malioboro", area: "Sans Mataram", roomSummary: "", category: "",
     description: "", priceFrom: 195000, priceLabel: "Mulai Rp195.000 / malam", promoCode: "RDAFFRDRZAJA", amenities: ["AC", "TV", "Wi-Fi", "Water heater", "Kamar mandi di dalam", "Parkir"], checkIn: "14.00 WIB", checkOut: "12.00 WIB",
     images: [
-      { src: "assets/images/properties/sans-mataram/file_1795272120207.jpg", alt: "Foto Sans Hotel Mataram Malioboro" },
       { src: "assets/images/properties/sans-mataram/file_1795272120207-1.jpg", alt: "Foto Sans Hotel Mataram Malioboro" },
+      { src: "assets/images/properties/sans-mataram/file_1795272120207.jpg", alt: "Foto Sans Hotel Mataram Malioboro" },
       { src: "assets/images/properties/sans-mataram/file_1795272120207-2.jpg", alt: "Foto Sans Hotel Mataram Malioboro" },
       { src: "assets/images/properties/sans-mataram/file_1795272120207-3.jpg", alt: "Foto Sans Hotel Mataram Malioboro" }
     ]
