@@ -245,7 +245,7 @@
 
   const waLink = detail.querySelector("[data-property-whatsapp]");
   if (waLink) {
-    const message = `Halo, saya tertarik dengan ${stay.property}. Mohon informasi ketersediaan kamar dan harga. Kode promo: ${stay.promoCode || "-"}.`;
+    const message = `Halo, saya ingin booking ${stay.property} untuk tanggal [isi tanggal check-in] sampai [isi tanggal check-out]. Apakah kamar masih tersedia?`;
     const number = (window.SITE_CONFIG?.waNumber || "").replace(/\D/g, "");
     waLink.href = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
   }
