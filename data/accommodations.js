@@ -9,6 +9,7 @@ window.ACCOMMODATIONS = [
     description: "",
     priceFrom: 150000,
     priceLabel: "Mulai Rp150.000 / malam",
+    mapsUrl: "https://maps.app.goo.gl/L4YDJpDKhA6G8gFf6",
     promoCode: "RDAFFRDRZAJA",
     amenities: ["AC", "TV", "Wi-Fi", "Water heater", "Kamar mandi di dalam", "Parkir"],
     checkIn: "14.00 WIB",
@@ -21,7 +22,7 @@ window.ACCOMMODATIONS = [
   },
   {
     slug: "sans-mataram", property: "Sans Hotel Mataram Malioboro", area: "Sans Mataram", roomSummary: "", category: "",
-    description: "", priceFrom: 195000, priceLabel: "Mulai Rp195.000 / malam", promoCode: "RDAFFRDRZAJA", amenities: ["AC", "TV", "Wi-Fi", "Water heater", "Kamar mandi di dalam", "Parkir"], checkIn: "14.00 WIB", checkOut: "12.00 WIB",
+    description: "", priceFrom: 195000, priceLabel: "Mulai Rp195.000 / malam", mapsUrl: "https://maps.app.goo.gl/BrjkqArJignMPGjK6", promoCode: "RDAFFRDRZAJA", amenities: ["AC", "TV", "Wi-Fi", "Water heater", "Kamar mandi di dalam", "Parkir"], checkIn: "14.00 WIB", checkOut: "12.00 WIB",
     images: [
       { src: "assets/images/properties/sans-mataram/file_1795272120207-1.jpg", alt: "Foto Sans Hotel Mataram Malioboro" },
       { src: "assets/images/properties/sans-mataram/file_1795272120207.jpg", alt: "Foto Sans Hotel Mataram Malioboro" },
@@ -31,7 +32,7 @@ window.ACCOMMODATIONS = [
   },
   {
     slug: "omah-eka", property: "UrbanView omah eka", area: "Omah Eka", roomSummary: "", category: "",
-    description: "", priceFrom: 160000, priceLabel: "Mulai Rp160.000 / malam", promoCode: "RDAFFRDRZAJA", amenities: ["AC", "TV", "Wi-Fi", "Water heater", "Kamar mandi di dalam", "Parkir"], checkIn: "14.00 WIB", checkOut: "12.00 WIB",
+    description: "", priceFrom: 160000, priceLabel: "Mulai Rp160.000 / malam", mapsUrl: "https://maps.app.goo.gl/m8V4XaPGpabwebC2A", promoCode: "RDAFFRDRZAJA", amenities: ["AC", "TV", "Wi-Fi", "Water heater", "Kamar mandi di dalam", "Parkir"], checkIn: "14.00 WIB", checkOut: "12.00 WIB",
     images: [
       { src: "assets/images/properties/omah-eka/file_1795270425139.jpg", alt: "Foto UrbanView omah eka" },
       { src: "assets/images/properties/omah-eka/file_1795270425139-1.jpg", alt: "Foto UrbanView omah eka" },
@@ -41,7 +42,7 @@ window.ACCOMMODATIONS = [
   },
   {
     slug: "timuran-prawirotaman", property: "RedDoorz imuran prawirotaman", area: "Timuran Prawirotaman", roomSummary: "", category: "",
-    description: "", priceFrom: 135000, priceLabel: "Mulai Rp135.000 / malam", promoCode: "RDAFFRDRZAJA", amenities: ["AC", "TV", "Wi-Fi", "Water heater", "Kamar mandi di dalam", "Parkir"], checkIn: "14.00 WIB", checkOut: "12.00 WIB",
+    description: "", priceFrom: 135000, priceLabel: "Mulai Rp135.000 / malam", mapsUrl: "https://maps.app.goo.gl/WXUor2oSTRHSVidU8", promoCode: "RDAFFRDRZAJA", amenities: ["AC", "TV", "Wi-Fi", "Water heater", "Kamar mandi di dalam", "Parkir"], checkIn: "14.00 WIB", checkOut: "12.00 WIB",
     images: [
       { src: "assets/images/properties/timuran-prawirotaman/file_1795270237620.JPG", alt: "Foto RedDoorz imuran prawirotaman" },
       { src: "assets/images/properties/timuran-prawirotaman/file_1795270237621.JPG", alt: "Foto RedDoorz imuran prawirotaman" },
@@ -51,7 +52,7 @@ window.ACCOMMODATIONS = [
   },
   {
     slug: "maerakaca-tugu", property: "Hotel Maerakaca tugu jogja", area: "Maerakaca Tugu", roomSummary: "", category: "",
-    description: "", priceFrom: 135000, priceLabel: "Mulai Rp135.000 / malam", promoCode: "RDAFFRDRZAJA", amenities: ["AC", "TV", "Wi-Fi", "Water heater", "Kamar mandi di dalam", "Parkir"], checkIn: "14.00 WIB", checkOut: "12.00 WIB",
+    description: "", priceFrom: 135000, priceLabel: "Mulai Rp135.000 / malam", mapsUrl: "https://maps.app.goo.gl/mAXn6hqF9RfewBDd8", promoCode: "RDAFFRDRZAJA", amenities: ["AC", "TV", "Wi-Fi", "Water heater", "Kamar mandi di dalam", "Parkir"], checkIn: "14.00 WIB", checkOut: "12.00 WIB",
     images: [
       { src: "assets/images/properties/maerakaca-tugu/file_1795269936234.JPG", alt: "Foto Hotel Maerakaca tugu jogja" },
       { src: "assets/images/properties/maerakaca-tugu/file_1795269936234-1.JPG", alt: "Foto Hotel Maerakaca tugu jogja" },
@@ -61,7 +62,7 @@ window.ACCOMMODATIONS = [
   },
   {
     slug: "reddoorz-tegal-panggung", property: "RedDoorz Tegal Panggung", area: "Tegal Panggung", roomSummary: "", category: "",
-    description: "", priceFrom: 135000, priceLabel: "Mulai Rp135.000 / malam", promoCode: "RDAFFRDRZAJA", amenities: ["AC", "TV", "Wi-Fi", "Water heater", "Kamar mandi di dalam", "Parkir"], checkIn: "14.00 WIB", checkOut: "12.00 WIB",
+    description: "", priceFrom: 135000, priceLabel: "Mulai Rp135.000 / malam", mapsUrl: "https://maps.app.goo.gl/DTUAWdAouGz8aMpj6", promoCode: "RDAFFRDRZAJA", amenities: ["AC", "TV", "Wi-Fi", "Water heater", "Kamar mandi di dalam", "Parkir"], checkIn: "14.00 WIB", checkOut: "12.00 WIB",
     images: [
       { src: "assets/images/properties/RedDoorz-tegal panggung/file_1795269448087.jpg", alt: "Foto RedDoorz Tegal Panggung" },
       { src: "assets/images/properties/RedDoorz-tegal panggung/file_1795269448088.jpg", alt: "Foto RedDoorz Tegal Panggung" },

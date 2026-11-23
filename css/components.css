@@ -294,27 +294,10 @@
   opacity: 0.55;
 }
 
-.site-footer__social svg,
-.site-footer__whatsapp svg {
+.site-footer__social svg {
   width: 20px;
   height: 20px;
   fill: currentColor;
-}
-
-.site-footer__whatsapp {
-  display: inline-flex;
-  width: fit-content;
-  min-height: 44px;
-  align-items: center;
-  gap: var(--space-2);
-  color: var(--color-wa-dark);
-  font-family: var(--font-heading);
-  font-size: 14px;
-  font-weight: 700;
-}
-
-.site-footer__whatsapp[aria-disabled="true"] {
-  color: var(--color-muted);
 }
 
 .site-footer__copyright {
@@ -340,7 +323,7 @@
 
 @media (min-width: 768px) {
   .site-footer__minimal {
-    grid-template-columns: minmax(0, 1fr) auto auto;
+    grid-template-columns: minmax(0, 1fr) auto;
     gap: var(--space-8);
   }
 

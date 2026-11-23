@@ -42,21 +42,6 @@ document.querySelectorAll("[data-social-link]").forEach((link) => {
   }
 });
 
-const footerWhatsApp = document.querySelector("[data-footer-whatsapp]");
-if (footerWhatsApp) {
-  const label = footerWhatsApp.querySelector("[data-footer-whatsapp-label]");
-  if (whatsappNumber) {
-    footerWhatsApp.href = `https://wa.me/${whatsappNumber}`;
-    footerWhatsApp.target = "_blank";
-    footerWhatsApp.rel = "noopener noreferrer";
-    if (label) label.textContent = `+${whatsappNumber}`;
-  } else {
-    footerWhatsApp.removeAttribute("href");
-    footerWhatsApp.setAttribute("aria-disabled", "true");
-    if (label) label.textContent = "Nomor WhatsApp belum diatur";
-  }
-}
-
 document.querySelectorAll("[data-page-back]").forEach((pageBack) => {
   pageBack.addEventListener("click", (event) => {
     if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
