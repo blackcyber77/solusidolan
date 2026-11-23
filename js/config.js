@@ -3,8 +3,6 @@ window.SITE_CONFIG = Object.freeze({
   waNumber: "6285727266216",
   mapsApiKey: "",
   socialLinks: {
-    facebook: "",
-    tiktok: "",
-    instagram: ""
+    tiktok: "https://www.tiktok.com/@solusidolan?is_from_webapp=1&sender_device=pc"
   }
 });
