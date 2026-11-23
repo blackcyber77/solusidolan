@@ -138,7 +138,7 @@
   setText("[data-property-check-in]", stay.checkIn || "Belum tersedia");
   setText("[data-property-check-out]", stay.checkOut || "Belum tersedia");
   const formattedPrice = Number.isFinite(stay.priceFrom)
-    ? `Harga per malam: Rp${new Intl.NumberFormat("id-ID").format(stay.priceFrom)}`
+    ? `Harga per malam: Mulai Rp${new Intl.NumberFormat("id-ID").format(stay.priceFrom)}`
     : "Harga per malam belum tersedia";
   setText("[data-property-price]", formattedPrice);
 

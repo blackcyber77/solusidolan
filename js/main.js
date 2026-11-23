@@ -18,6 +18,16 @@ if (currentYear) {
 }
 
 const siteConfig = window.SITE_CONFIG || {};
+const whatsappNumber = (siteConfig.waNumber || "").replace(/\D/g, "");
+
+if (whatsappNumber) {
+  document.querySelectorAll('a[href="https://wa.me/"]').forEach((link) => {
+    link.href = `https://wa.me/${whatsappNumber}`;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+  });
+}
+
 document.querySelectorAll("[data-social-link]").forEach((link) => {
   const platform = link.dataset.socialLink;
   const url = siteConfig.socialLinks?.[platform];
@@ -34,13 +44,12 @@ document.querySelectorAll("[data-social-link]").forEach((link) => {
 
 const footerWhatsApp = document.querySelector("[data-footer-whatsapp]");
 if (footerWhatsApp) {
-  const number = (siteConfig.waNumber || "").replace(/\D/g, "");
   const label = footerWhatsApp.querySelector("[data-footer-whatsapp-label]");
-  if (number) {
-    footerWhatsApp.href = `https://wa.me/${number}`;
+  if (whatsappNumber) {
+    footerWhatsApp.href = `https://wa.me/${whatsappNumber}`;
     footerWhatsApp.target = "_blank";
     footerWhatsApp.rel = "noopener noreferrer";
-    if (label) label.textContent = `+${number}`;
+    if (label) label.textContent = `+${whatsappNumber}`;
   } else {
     footerWhatsApp.removeAttribute("href");
     footerWhatsApp.setAttribute("aria-disabled", "true");
